@@ -1,0 +1,86 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Agenda{% endblock %}
+
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Agenda</span></li>
+            <li class="breadcrumb-item active"><span>Map</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+{% block content %}
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        <h3>Stamp Map</h3>
+        <!-- 搜索表单 -->
+        <form onsubmit="searchLocation(event)" style="margin-bottom: 20px;">
+          <input type="text" id="location-input" placeholder="输入地点" required style="padding: 8px;"/>
+          <button type="submit" style="padding: 8px 12px;">搜索</button>
+        </form>
+        <div id="container" style="height: 650px;"></div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+    
+<!-- 高德地图初始化脚本 -->
+<script type="text/javascript">
+    window._AMapSecurityConfig = {
+        securityJsCode: "63782f2afdffae17b1aac35011fea38e",
+    };
+</script>
+<script src="{% static 'js/loader.js' %}"></script> 
+
+<script type="text/javascript">
+  AMapLoader.load({
+      key: "518f0cab403e3ba1bc5acc52d0f0fc4d", // 使用你的Web端开发者Key
+      version: "2.0",
+  })
+  .then((AMap) => {
+      const map = new AMap.Map("container", {
+          zoom: 11,
+          center: [121.4737, 31.2304] // 初始中心点：上海市中心
+      });
+      
+      // 搜索函数
+      window.searchLocation = function(event) {
+          event.preventDefault();
+          const location = document.getElementById("location-input").value;
+
+          if (location) {
+              // 加载 Geocoder 插件
+              AMap.plugin("AMap.Geocoder", function () {
+                  const geocoder = new AMap.Geocoder({
+                      city: "上海", // 限制搜索范围
+                  });
+
+                  // 获取地点坐标
+                  geocoder.getLocation(location, function (status, result) {
+                      if (status === 'complete' && result.geocodes.length > 0) {
+                          const position = result.geocodes[0].location;
+                          map.setCenter([position.lng, position.lat]); // 移动地图中心
+                          
+                          // 在地图上添加标记
+                          new AMap.Marker({
+                              position: position,
+                              map: map,
+                          });
+                      } else {
+                          alert("未找到该位置，请尝试其他搜索词");
+                      }
+                  });
+              });
+          }
+      }
+  })
+  .catch((e) => {
+      console.error("地图加载错误:", e);
+  });
+</script>
+
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% block title %}修改游记{% endblock %}
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Posts</span></li>
+            <li class="breadcrumb-item"><span>My Posts</span></li>
+            <li class="breadcrumb-item active"><span>Edit</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container-lg px-4">
+  <div class="card">
+      <h5 class="card-header text-center">
+          <i class="bi bi-pencil"></i> 修改游记
+      </h5>
+      <div class="card-body">
+        <form method="post" enctype="multipart/form-data" id="post-form">
+            {% csrf_token %}
+            <!-- Post Title -->
+          <div class="input-group mb-3">
+            <span class="input-group-text" id="title-addon">@</span>
+            <input type="text" class="form-control" name="title" placeholder="Post Title" aria-label="Post Title" aria-describedby="title-addon" value="{{ form.title.value }}" required>
+        </div>
+    
+        <!-- Post Content -->
+        <div class="input-group mb-3">
+            <span class="input-group-text">Content</span>
+            <textarea class="form-control" id="post-content" name="content" aria-label="With textarea" placeholder="Write your post here..." rows="5" required>{{ form.content.value }}</textarea>
+        </div>
+        <div class="text-danger mt-2" id="content-error" style="display: none;">Content must be between 10 and 500 characters.</div>
+
+        <h3>Images</h3>
+        {{ image_formset.management_form }} <!-- Django 的 formset 管理字段 -->
+
+        <div class="formset-images">
+            {% for form in image_formset %}
+                <div class="form-image mb-2" id="image-form-{{ forloop.counter }}">
+                    {{ form.as_p }}
+                    {% if form.instance.image %}
+                        <img src="{{ form.instance.image.url }}" alt="Post Image" style="max-width: 100px;">
+                        <!-- 删除按钮 -->
+                        <button type="button" class="btn btn-danger btn-sm delete-image" data-form-id="{{ forloop.counter }}">
+                            删除
+                        </button>
+                        <!-- 隐藏的删除复选框 -->
+                        {{ form.DELETE }} 
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+
+        <!-- File upload error message -->
+        <div class="text-danger mt-2" id="file-error" style="display: none;">You can upload up to 9 images only.</div>
+        
+        <!-- 添加图片按钮 -->
+        <button type="button" class="btn btn-secondary mt-3" id="add-image">添加图片</button>
+        
+        <!-- Buttons -->
+        <div class="d-flex justify-content-between mt-4">
+            <a class="btn btn-outline-primary" href="{% url 'posts:my_post' %}">
+                <i class="bi bi-arrow-left"></i> 返回我的游记
+            </a>
+            <button type="submit" class="btn btn-primary">确认修改</button>
+        </div>
+        </form>
+      </div>
+  </div>
+</div>
+
+<style>
+  /* 隐藏删除复选框 */
+  input[type="checkbox"][name$="-DELETE"] {
+      display: none;
+  }
+</style>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const maxImages = 9; // 最大图片数量
+    let currentImages = document.querySelectorAll('.form-image').length; // 当前已有的图片数量
+    const formsetContainer = document.querySelector('.formset-images');
+    const addImageButton = document.getElementById('add-image');
+    const fileError = document.getElementById('file-error');
+
+    // 删除图片功能
+    document.querySelectorAll('.delete-image').forEach(function(button) {
+        button.addEventListener('click', function() {
+            const formId = this.getAttribute('data-form-id');
+            const formElement = document.getElementById(`image-form-${formId}`);
+            // 隐藏图像表单并标记删除复选框
+            formElement.style.display = 'none';
+            formElement.querySelector('input[type="checkbox"]').checked = true;  // 勾选隐藏的删除复选框
+            currentImages--;  // 更新当前图片数量
+            if (currentImages < maxImages) {
+                fileError.style.display = 'none';  // 隐藏错误信息
+                addImageButton.disabled = false;  // 允许添加图片
+            }
+        });
+    });
+
+    // 添加图片功能
+    addImageButton.addEventListener('click', function () {
+        if (currentImages < maxImages) {
+            const newForm = document.createElement('div');
+            newForm.classList.add('form-image', 'mb-2');
+            newForm.innerHTML = `
+                <input type="file" name="image_formset-${currentImages}-image" class="form-control">
+            `;
+            formsetContainer.appendChild(newForm);
+            currentImages++;
+
+            // 如果达到了最大数量，禁用添加图片按钮
+            if (currentImages >= maxImages) {
+                fileError.style.display = 'block';  // 显示错误信息
+                addImageButton.disabled = true;  // 禁用添加按钮
+            }
+        }
+    });
+});
+</script>
+{% endblock %}

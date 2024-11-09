@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load static %} 
+{% block title %}Agenda{% endblock %}
+
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Agenda</span></li>
+            <li class="breadcrumb-item active"><span>Map</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+{% block content %}
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        <h3>Stamp Map Example</h3>
+        <select class="form-multi-select" multiple data-coreui-search="true">
+            <optgroup label="backend">
+            <option value="0">Angular</option>
+            <option value="1">Bootstrap</option>
+            <option value="2">React.js</option>
+            <option value="3">Vue.js</option>
+            </optgroup>
+            <optgroup label="backend">
+              <option value="4" >Django</option>
+              <option value="5">Laravel</option>
+              <option value="6">Node.js</option>
+            </optgroup>
+          </select>
+        
+        <div id="map" style="height: 500px;"></div>
+    </div>
+</div>
+{% endblock %}
+{% block script %}
+<link rel="stylesheet" href="{% static 'css/leaflet.css' %}" />
+<script src="{% static 'js/leaflet.js' %}"></script>
+
+<!-- 地图初始化脚本 -->
+<script>
+    // 初始化地图，设置中心点并设置缩放级别为11，使上海地区较大范围显示
+    var map = L.map('map').setView([31.2304, 121.4737], 11); // 以上海为中心
+
+    // 加载地图瓦片（OpenStreetMap 示例）
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; OpenStreetMap contributors'
+    }).addTo(map);
+
+    // 自定义印章样式的标记 (你可以替换成具体图标)
+    var stampIcon = L.icon({
+        iconUrl: "{% static 'assets/img/marker.jpg' %}", // 自定义印章图标
+        iconSize: [40, 40], // 图标大小
+        iconAnchor: [20, 20] // 图标中心
+    });
+
+    // 添加标记：上海迪士尼乐园
+    L.marker([31.1433, 121.6571], { icon: stampIcon }).addTo(map)
+        .bindPopup('Shanghai Disneyland');
+
+    // 添加标记：东方明珠塔
+    L.marker([31.2397, 121.4998], { icon: stampIcon }).addTo(map)
+        .bindPopup('Oriental Pearl Tower');
+
+    // 添加标记：海昌海洋公园
+    L.marker([31.0603, 121.9103], { icon: stampIcon }).addTo(map)
+        .bindPopup('Haichang Ocean Park');
+
+    // 添加标记：外滩
+    L.marker([31.2400, 121.4900], { icon: stampIcon }).addTo(map)
+        .bindPopup('The Bund');
+
+    // 使用 polyline 连接这些地点，并设置为红色
+    var latlngs = [
+        [31.1433, 121.6571],  // 迪士尼
+        [31.2397, 121.4998],  // 东方明珠塔
+        [31.0603, 121.9103],  // 海昌海洋公园
+        [31.2400, 121.4900]   // 外滩
+    ];
+
+    // 创建红色的线条并将其添加到地图
+    var polyline = L.polyline(latlngs, {color: 'red'}).addTo(map);
+
+    // 调整地图视野，使所有标记和线条都能显示
+    map.fitBounds(polyline.getBounds());
+</script>
+{% endblock %}

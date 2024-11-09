@@ -1,0 +1,524 @@
+{% load static %}
+<!DOCTYPE html><!--
+    * CoreUI PRO Bootstrap Admin Template
+    * @version v5.2.0
+    * @link https://coreui.io/product/bootstrap-dashboard-template/
+    * Copyright (c) 2023 creativeLabs Łukasz Holeczek
+    * License (https://coreui.io/pro/license/)
+    -->
+    <html lang="en">
+        <head>
+            <base href="./">
+            <meta charset="utf-8">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+            <meta name="description" content="CoreUI - Bootstrap Admin Template">
+            <meta name="author" content="Łukasz Holeczek">
+            <meta name="keyword" content="Bootstrap,Admin,Template,SCSS,HTML,RWD,Dashboard">
+            <title> {% block title %} CoreUI Travel Agenda {% endblock %}</title>
+        
+            <!-- CoreUI Icons CSS -->
+            <link href="{% static 'css/free.min.css' %}" rel="stylesheet">
+            <link href="{% static 'css/bootstrap-icons.css' %}" rel="stylesheet">
+            <!-- Bootstrap Icons CSS -->
+            <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet"> -->
+        
+            <!-- Apple Touch Icons -->
+            <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/favicon/apple-icon-57x57.png' %}">
+            <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/favicon/apple-icon-60x60.png' %}">
+            <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/favicon/apple-icon-72x72.png' %}">
+            <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/favicon/apple-icon-76x76.png' %}">
+            <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/favicon/apple-icon-114x114.png' %}">
+            <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/favicon/apple-icon-120x120.png' %}">
+            <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/favicon/apple-icon-144x144.png' %}">
+            <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/favicon/apple-icon-152x152.png' %}">
+            <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-icon-180x180.png' %}">
+            <link rel="icon" type="image/png" sizes="192x192" href="{% static 'assets/favicon/android-icon-192x192.png' %}">
+            <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
+            <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/favicon/favicon-96x96.png' %}">
+            <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
+            <link rel="manifest" href="{% static 'assets/favicon/manifest.json' %}">
+            <meta name="msapplication-TileColor" content="#ffffff">
+            <meta name="msapplication-TileImage" content="{% static 'assets/favicon/ms-icon-144x144.png' %}">
+            <meta name="theme-color" content="#ffffff">
+        
+            <!-- Vendors styles-->
+            <link rel="stylesheet" href="{% static 'vendors/simplebar/css/simplebar.css' %}">
+            <!-- Main styles for this application-->
+            <link href="{% static 'css/style.css' %}" rel="stylesheet">
+            <!-- Example styles for code demonstration (optional) -->
+            <link href="{% static 'css/examples.css' %}" rel="stylesheet">
+        
+            <!-- JavaScript files -->
+            <script src="{% static 'js/config.js' %}"></script>
+            <script src="{% static 'js/color-modes.js' %}"></script>
+            <script src="{% static 'js/jquery.js' %}"></script>
+        </head>
+        <body>
+            <!--Side Bar-->
+            
+            <div class="sidebar sidebar-dark sidebar-fixed border-end" data-coreui="navigation" id="sidebar">
+                <div class="sidebar-header border-bottom">
+                  <div class="sidebar-brand">CoreUI</div>
+                </div>
+                
+                <ul class="sidebar-nav"  data-simplebar="">
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard:dashboard' %}">
+                      <i class="nav-icon bi-speedometer2"></i> 
+                      <span data-coreui-i18n="dashboard">Dashboard</span>
+                    </a>
+                  </li>
+               
+                  <li class="nav-title" data-coreui-i18n="theme">Destinations</li>
+                  <li class="nav-group">
+                    <a class="nav-link nav-group-toggle">
+                      <i class="nav-icon bi-layers"></i>
+                      <span>探索目的地</span>
+                    </a>
+                    <ul class="nav-group-items compact">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'destinations:attraction' %}">
+                          <span class="nav-icon"><i class="bi bi-star"></i></span> 必玩 <!-- Star icon for must-visit attractions -->
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'destinations:restaurant' %}">
+                          <span class="nav-icon"><i class="bi bi-basket"></i></span> 必吃 <!-- Basket icon for must-try foods -->
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'destinations:shop' %}">
+                          <span class="nav-icon"><i class="bi bi-shop"></i></span> 必逛 <!-- Shop icon for must-visit shopping places -->
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'destinations:hotel' %}">
+                          <span class="nav-icon"><i class="bi bi-house"></i></span> 必住 <!-- House icon for must-stay accommodations -->
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'destinations:traffic' %}">
+                          <span class="nav-icon"><i class="bi bi-speedometer2"></i></span> 交通 <!-- House icon for must-stay accommodations -->
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'agenda:map' %}">
+                      <span class="nav-icon"><i class="bi-geo-alt"></i></span> 印章地图
+                    </a>
+                  </li>
+                  
+                  <!-- <li class="nav-item">
+                    <a class="nav-link" href="">
+                      <i class="nav-icon bi-palette"></i> 
+                      <span data-coreui-i18n="colors">Colors</span>
+                    </a>
+                  </li>
+              
+                  <li class="nav-item">
+                    <a class="nav-link" href="">
+                      <i class="nav-icon bi-cloud-download"></i> 
+                      <span data-coreui-i18n="typography">Typography</span>
+                    </a>
+                  </li> -->
+              
+                  <li class="nav-title" data-coreui-i18n="components">Agenda</li>
+                  <li class="nav-item">
+                    <a class="nav-link" href="{% url 'agenda:LLM' %}">
+                      <span class="nav-icon"><i class="bi bi-star"></i></span> 个性化攻略推荐
+                      <span class="badge bg-primary ms-auto">Pro</span>
+                    </a>
+                   
+                  </li>
+
+                  <li class="nav-group">
+                    <a class="nav-link nav-group-toggle" href="{% url 'agenda:main' %}">
+                      <i class="nav-icon bi-calendar"></i>
+                      <span>我的日程</span>
+                    </a>
+                    <ul class="nav-group-items compact">                   
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'agenda:calendar' %}">
+                          <span class="nav-icon"><i class="bi bi-eye"></i></span> 日历视图
+                        </a>
+                      </li>
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'agenda:myagenda' %}">
+                          <span class="nav-icon"><i class="bi bi-credit-card"></i></span> 管理日程
+                        </a>
+                      </li>
+                      
+                    </ul>
+                    
+                  </li>
+                  
+                  <li class="nav-title" data-coreui-i18n="theme">Posts</li>
+                  <li class="nav-group">
+                    <a class="nav-link nav-group-toggle" href="">
+                      <i class="nav-icon bi-chat"></i>
+                      <span>社区分享</span>
+                    </a>
+                    <ul class="nav-group-items compact">
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'posts:post_list' %}">
+                          <span class="nav-icon"><span class="bi bi-eye"></span></span> 查看游记
+                        </a>
+                      </li>
+                      <!-- <li class="nav-item">
+                        <a class="nav-link" href="{% url 'posts:send' %}">
+                          <span class="nav-icon"><span class="bi bi-pencil"></span></span> 发布游记
+                        </a>
+                      </li> -->
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'posts:my_post' %}">
+                          <span class="nav-icon"><span class="bi bi-pencil"></span></span> 我的游记
+                        </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+                
+                <div class="sidebar-footer border-top d-none d-lg-flex">
+                  <button class="sidebar-toggler" type="button" onclick="toggleSidebarNarrow()"></button>
+                </div>
+            </div>
+
+            <!--Side Bar right panel-->
+            
+            <div class="sidebar sidebar-light sidebar-lg sidebar-end sidebar-overlaid border-start" id="aside">
+                <div class="sidebar-header p-0 position-relative">
+                  <ul class="nav nav-underline-border w-100" role="tablist">
+                    <li class="nav-item">
+                      <a class="nav-link active" data-coreui-toggle="tab" href="">
+                        <i class="bi bi-list"></i> <!-- 使用Bootstrap Icons -->
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-coreui-toggle="tab" href="">
+                        <i class="bi bi-chat-dots"></i> <!-- 使用Bootstrap Icons -->
+                      </a>
+                    </li>
+                    <li class="nav-item">
+                      <a class="nav-link" data-coreui-toggle="tab" href="">
+                        <i class="bi bi-gear"></i> <!-- 使用Bootstrap Icons -->
+                      </a>
+                    </li>
+                  </ul>
+                  <button class="btn-close position-absolute top-50 end-0 translate-middle my-0" type="button" aria-label="Close" onclick="coreui.Sidebar.getInstance(document.querySelector('#aside')).toggle()"></button>
+                </div>
+              
+               
+            </div>
+            <!--Nav Bar-->
+            <div class="wrapper d-flex flex-column min-vh-100">
+                <header class="header header-sticky p-0 mb-4">
+                  <div class="container-fluid px-4 border-bottom">
+                    <button class="header-toggler" type="button" onclick="toggleSidebarHidden()" style="margin-inline-start: -14px">
+                      <i class="bi bi-list icon-lg"></i>
+                    </button>
+                    <ul class="header-nav d-none d-md-flex">
+                        <li class="nav-item"><a class="nav-link" data-coreui-i18n="dashboard">Dashboard</a></li>
+                        <li class="nav-item"><a class="nav-link" data-coreui-i18n="users">Users</a></li>
+                        <li class="nav-item"><a class="nav-link" data-coreui-i18n="settings">Settings</a></li>
+                    </ul>
+                    <ul class="header-nav d-none d-md-flex ms-auto">
+                        {% comment %} <li class="nav-item dropdown">
+                            <a class="nav-link" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-bell icon-lg my-1 mx-2"></i>
+                                <span class="badge rounded-pill position-absolute top-0 end-0 bg-danger-gradient">5</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg pt-0">
+                                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2" data-coreui-i18n="notificationsCounter, { 'counter': 5 }">You have 5 notifications</div>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-person-plus me-2 text-success"></i>
+                                    <span data-coreui-i18n="newUserRegistered">New user registered</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-person-dash me-2 text-danger"></i>
+                                    <span data-coreui-i18n="userDeleted">User deleted</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-bar-chart me-2 text-info"></i>
+                                    <span data-coreui-i18n="salesReportIsReady">Sales report is ready</span>
+                                </a>
+                                <a class="dropdown-item" href="#">
+                                    <i class="bi bi-basket me-2 text-success"></i>
+                                    <span data-coreui-i18n="newClient">New client</span>
+                                </a>
+                                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2" data-coreui-i18n="server">Server</div>
+                            </div>
+                        </li> {% endcomment %}
+                        
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-list-check icon-lg my-1 mx-2" style="font-size: 1.2rem;"></i>
+                                <span class="badge rounded-pill position-absolute top-0 end-0 bg-warning-gradient">{{ total_locations }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-lg pt-0">
+                                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2" data-coreui-i18n="taskCounter, { 'counter': 5 }">You have {{ total_locations }} pending tasks</div>
+                                {% for location in top_three_locations %}
+                                <a class="dropdown-item d-block py-2" href="{% url 'agenda:calendar' %}">
+                                    <div class="d-flex justify-content-between mb-1">
+                                        <div class="small">{{ location.departure_location }} to {{ location.arrival_location }}</div>
+                                        <div class="fw-semibold">{{ location.progress }}%</div>
+                                    </div>
+                                    <div class="progress progress-thin">
+                                        <div class="progress-bar 
+                                            {% if location.progress == 100 %}bg-success{% elif location.progress >= 50 %}bg-warning{% else %}bg-info{% endif %}" 
+                                            role="progressbar" 
+                                            style="width: {{ location.progress }}%" 
+                                            aria-valuenow="{{ location.progress }}" 
+                                            aria-valuemin="0" 
+                                            aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </a>
+                            {% endfor %}
+                            
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center fw-semibold" href="{% url 'agenda:calendar' %}" data-coreui-i18n="viewAllTasks">View all tasks</a>
+                            </div>
+                        </li>
+                    
+                        <li class="nav-item dropdown">
+                            <a class="nav-link" data-coreui-toggle="dropdown" href="{% url 'notifications:view_notifications' %}" role="button" aria-haspopup="true" aria-expanded="false">
+                                <i class="bi bi-envelope-open icon-lg my-1 mx-2"></i>
+                                <span class="badge rounded-pill position-absolute top-0 end-0 bg-info-gradient">{{ unread_count }}</span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-end dropdown-menu-md pt-0" style="min-width: 24rem">
+                                <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2" data-coreui-i18n="messagesCounter, { 'counter': 7 }">You have {{ unread_count }} messages</div>
+                                {% for notification in ms|slice:":3" %}
+                            <a class="dropdown-item" href="{% url 'notifications:view_notifications' %}">
+                                <div class="d-flex">
+                                    <div class="avatar flex-shrink-0 my-3 me-3">
+                                        {% if notification.user.profile_picture and notification.user.profile_picture.url %}
+                                            <img src="{{ notification.user.profile_picture.url }}" alt="Profile Picture" style="max-width: 45px; max-height: 45px; width: auto; height: auto; border-radius: 50%;" />
+                                        {% else %}
+                                            <img class="avatar-img" src="/static/assets/img/avatars/8.jpg" alt="user@email.com" style="max-width: 45px; max-height: 45px; width: auto; height: auto; border-radius: 50%;" />
+                                        {% endif %}
+                                        <span class="avatar-status {% if not notification.is_read %}bg-success{% else %}bg-secondary{% endif %}"></span>
+                                    </div>
+                                    <div class="message text-wrap">
+                                        <div class="d-flex justify-content-between mt-1">
+                                            <div class="small text-body-secondary">{{ notification.user.username }}</div>
+                                            <div class="small text-body-secondary">{{ notification.created_at|date:"H:i" }}</div>
+                                        </div>
+                                        <div class="fw-semibold">
+                                            <span class="text-danger">! </span>{{ notification.message }}
+                                        </div>
+                                        <div class="small text-body-secondary">{{ notification.created_at|date:"Y-m-d" }}</div>
+                                    </div>
+                                </div>
+                            </a>
+                            {% empty %}
+                            <a class="dropdown-item" href="{% url 'notifications:view_notifications' %}">
+                                <div class="d-flex">
+                                    <div class="message text-wrap">
+                                        <div class="small text-body-secondary text-center">当前没有新消息</div>
+                                    </div>
+                                </div>
+                            </a>
+{% endfor %}
+
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item text-center fw-semibold" href="{% url 'notifications:view_notifications' %}" data-coreui-i18n="viewAllMessages">View all messages</a>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="header-nav ms-auto ms-md-0">
+                        <li class="nav-item py-1">
+                          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                          <button class="btn btn-link nav-link" type="button" aria-expanded="false" data-coreui-toggle="dropdown">
+                            <svg class="icon icon-lg theme-icon-active">
+                              <use xlink:href="/static/vendors/@coreui/icons/svg/free.svg#cil-contrast"></use>
+                            </svg>
+                            <!-- <i class="bi bi-lightbulb icon-lg theme-icon-active"></i> -->
+                            <span data-coreui-i18n="theme">Theme</span>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end" style="--cui-dropdown-min-width: 8rem;">
+                            <li>
+                              <button class="dropdown-item d-flex align-items-center" type="button" data-coreui-theme-value="light">
+                                <svg class="icon icon-lg me-3">
+                                  <use xlink:href="/static/vendors/@coreui/icons/svg/free.svg#cil-sun"></use>
+                                </svg>
+                                <span data-coreui-i18n="light">Light</span>&nbsp;&nbsp;
+                                <!-- <i class="bi bi-sun me-3"></i> -->
+                              </button>
+                            </li>
+                            <li>
+                              <button class="dropdown-item d-flex align-items-center" type="button" data-coreui-theme-value="dark">
+                                <svg class="icon icon-lg me-3">
+                                  <use xlink:href="/static/vendors/@coreui/icons/svg/free.svg#cil-moon"></use>
+                                </svg>
+                                <span data-coreui-i18n="dark">Dark</span>&nbsp;&nbsp;
+                                <!-- <i class="bi bi-moon me-3"></i> -->
+                              </button>
+                            </li>
+                            <li>
+                              <button class="dropdown-item d-flex align-items-center active" type="button" data-coreui-theme-value="auto">
+                                <svg class="icon icon-lg me-3">
+                                  <use xlink:href="/static/vendors/@coreui/icons/svg/free.svg#cil-contrast"></use>
+                                </svg>
+                                <span data-coreui-i18n="auto">Auto</span>&nbsp;&nbsp;
+                                <!-- Auto&nbsp;&nbsp;
+                                <i class="bi bi-circle-half me-3"></i> -->
+                              </button>
+                            </li>
+                          </ul>
+                        </li>
+                      
+                        <li class="nav-item py-1">
+                          <div class="vr h-100 mx-2 text-body text-opacity-75"></div>
+                        </li>
+                        
+                        <li class="nav-item dropdown">
+                          <a class="nav-link py-0" data-coreui-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                            <div class="avatar avatar-md">
+                              {% if user.profile_picture and user.profile_picture.url %}
+                                  <img src="{{ user.profile_picture.url }}" alt="Profile Picture" style="max-width: 45px; max-height: 45px; width: auto; height: auto; border-radius: 50%;" />
+                              {% else %}
+                                  <img class="avatar-img" src="/static/assets/img/avatars/8.jpg" alt="user@email.com" style="max-width: 45px; max-height: 45px; width: auto; height: auto; border-radius: 50%;" />
+                              {% endif %}
+                            </div>
+                          </a>
+                          <div class="dropdown-menu dropdown-menu-end pt-0">
+                            <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold rounded-top mb-2" data-coreui-i18n="account">Account</div>
+                            <a class="dropdown-item" href="{% url 'notifications:view_notifications' %}">
+
+                              <i class="bi bi-envelope-open me-2"></i>
+                              <span data-coreui-i18n="messages">Messages</span>
+                              <span class="badge badge-sm bg-success ms-2">{{ unread_count }}</span>
+
+                            </a>
+                            <a class="dropdown-item" href="/agenda/myagenda">
+                              <i class="bi bi-list-task me-2"></i>
+                              <span data-coreui-i18n="tasks">Tasks</span>
+                              <span class="badge badge-sm bg-danger-gradient ms-2">{{ total_locations }}</span>
+                            </a>
+                            <a class="dropdown-item" href="/posts/list">
+                              <i class="bi bi-chat-square-text me-2"></i>
+                              <span data-coreui-i18n="comments">Posts</span>
+                              <span class="badge badge-sm bg-warning-gradient ms-2">ALL</span>
+                            </a>
+                            <div class="dropdown-header bg-body-tertiary text-body-secondary fw-semibold my-2" data-coreui-i18n="settings">Settings</div>
+                            <a class="dropdown-item" href="/accounts/profile">
+                              <i class="bi bi-person me-2"></i>
+                              <span data-coreui-i18n="profile">Profile</span>
+                              <span class="badge badge-sm bg-primary-gradient ms-2">个人资料</span>
+                            </a>
+                            <a class="dropdown-item" href="/accounts/settings">
+                              <i class="bi bi-gear me-2"></i>
+                              <span data-coreui-i18n="settings">Settings</span>
+                              <span class="badge badge-sm bg-secondary-gradient text-dark ms-2">修改密码</span>
+                            </a>
+                           
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                              <i class="bi bi-lock me-2"></i>
+                              <span data-coreui-i18n="lockAccount">Change Account</span>
+                            </a>
+                            <a class="dropdown-item" href="{% url 'accounts:logout' %}">
+                              <i class="bi bi-box-arrow-right me-2"></i>
+                              <span data-coreui-i18n="logout">Logout</span>
+                            </a>
+                          </div>
+                        </li>
+                    </ul>
+                    <button class="header-toggler" type="button" onclick="coreui.Sidebar.getInstance(document.querySelector('#aside')).show()" style="margin-inline-end: -12px">
+                        <i class="bi bi-gear icon-lg"></i>
+                    </button>
+                </div>
+                {% block trace %}
+                <div class="container-fluid px-4">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb my-0">
+                            <li class="breadcrumb-item"><span>Home</span></li>
+                            <li class="breadcrumb-item active"><span>Blank</span></li>
+                        </ol>
+                    </nav>
+                </div>
+                {% endblock %}
+            </header>
+            {% block content %}
+            <div class="body flex-grow-1">
+                <div class="container-lg px-4">
+                    <!-- Additional content can go here -->
+                </div>
+            </div>
+            {% endblock %}
+            <footer class="footer px-4">
+                <div><a href="https://coreui.io">CoreUI </a><a href="https://coreui.io/product/bootstrap-dashboard-template/">Bootstrap Admin Template</a> © 2023 creativeLabs.</div>
+                <div class="ms-auto">Powered by&nbsp;<a href="https://coreui.io/docs/">CoreUI PRO UI Components</a></div>
+            </footer>
+        </div>
+            
+        
+        <!-- CoreUI and necessary plugins-->
+
+        <link href="{% static 'vendors/@coreui/coreui-pro/css/coreui.min.css' %}" rel="stylesheet">
+        <link href="{% static 'vendors/simplebar/css/simplebar.min.css' %}" rel="stylesheet">
+
+        <script src="{% static 'vendors/@coreui/coreui-pro/js/coreui.bundle.min.js' %}"></script>
+        <script src="{% static 'vendors/simplebar/js/simplebar.min.js' %}"></script>
+        <script src="{% static 'vendors/i18next/js/i18next.min.js' %}"></script>
+        <script src="{% static 'vendors/i18next-http-backend/js/i18nextHttpBackend.js' %}"></script>
+        <script src="{% static 'vendors/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.js' %}"></script>
+        <script src="{% static 'js/i18next.js' %}"></script>
+
+        <script>
+        // const header = document.querySelector('header.header');
+
+        // document.addEventListener('scroll', () => {
+        //     if (header) {
+        //     header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+        //     }
+        // });
+        let isScrolling;
+
+        document.addEventListener('scroll', () => {
+            window.clearTimeout(isScrolling);
+
+            isScrolling = setTimeout(() => {
+                if (header) {
+                    header.classList.toggle('shadow-sm', document.documentElement.scrollTop > 0);
+                }
+            }, 100); // adjust the debounce delay as needed
+        });
+
+        </script>
+
+        <script>
+          
+        function toggleSidebarNarrow() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('sidebar-narrow');
+        }
+
+        function toggleSidebarHidden() {
+            const sidebar = document.getElementById('sidebar');
+            sidebar.classList.toggle('hide');
+        }
+        </script>
+  
+     
+        {% block script %}
+        <!-- Additional scripts can be added here -->
+        
+
+        {% endblock %}
+
+        {% block css %}
+        {% endblock %}
+
+    </body>
+</html>
+
+  
+              
+              
+        

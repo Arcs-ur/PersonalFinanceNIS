@@ -1,0 +1,217 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="./">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="description" content="CoreUI - Bootstrap Admin Template">
+    <meta name="author" content="Łukasz Holeczek">
+    <meta name="keyword" content="Bootstrap,Admin,Template,SCSS,HTML,RWD,Dashboard">
+    <title>CoreUI Bootstrap Admin Template</title>
+    <link rel="apple-touch-icon" sizes="57x57" href="{% static 'assets/favicon/apple-icon-57x57.png' %}">
+    <link rel="apple-touch-icon" sizes="60x60" href="{% static 'assets/favicon/apple-icon-60x60.png' %}">
+    <link rel="apple-touch-icon" sizes="72x72" href="{% static 'assets/favicon/apple-icon-72x72.png' %}">
+    <link rel="apple-touch-icon" sizes="76x76" href="{% static 'assets/favicon/apple-icon-76x76.png' %}">
+    <link rel="apple-touch-icon" sizes="114x114" href="{% static 'assets/favicon/apple-icon-114x114.png' %}">
+    <link rel="apple-touch-icon" sizes="120x120" href="{% static 'assets/favicon/apple-icon-120x120.png' %}">
+    <link rel="apple-touch-icon" sizes="144x144" href="{% static 'assets/favicon/apple-icon-144x144.png' %}">
+    <link rel="apple-touch-icon" sizes="152x152" href="{% static 'assets/favicon/apple-icon-152x152.png' %}">
+    <link rel="apple-touch-icon" sizes="180x180" href="{% static 'assets/favicon/apple-icon-180x180.png' %}">
+    <link rel="icon" type="image/png" sizes="192x192" href="{% static 'assets/favicon/android-icon-192x192.png' %}">
+    <link rel="icon" type="image/png" sizes="32x32" href="{% static 'assets/favicon/favicon-32x32.png' %}">
+    <link rel="icon" type="image/png" sizes="96x96" href="{% static 'assets/favicon/favicon-96x96.png' %}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{% static 'assets/favicon/favicon-16x16.png' %}">
+    <link rel="manifest" href="{% static 'assets/favicon/manifest.json' %}">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="{% static 'assets/favicon/ms-icon-144x144.png' %}">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="{% static 'vendors/simplebar/css/simplebar.css' %}">
+    <link href="{% static 'css/style.css' %}" rel="stylesheet">
+    <link href="{% static 'css/examples.css' %}" rel="stylesheet">
+    <script src="{% static 'js/config.js' %}"></script>
+    <script src="{% static 'js/color-modes.js' %}"></script>
+</head>
+<body>
+    <div class="min-vh-100 d-flex flex-row align-items-center">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card mb-4 mx-4">
+                        <div class="card-body p-4">
+                            <h1>Register</h1>
+                            <p class="text-body-secondary">Create your account</p>
+
+                            <form method="POST" action="{% url 'accounts:register' %}">
+                                {% csrf_token %}
+                                {% if form.non_field_errors %}
+                                    <div class="alert alert-danger">
+                                        {% for error in form.non_field_errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="{% static 'vendors/@coreui/icons/svg/free.svg#cil-user' %}"></use>
+                                        </svg>
+                                    </span>
+                                    {{ form.username }}
+                                    
+                                </div>
+                                {% if form.username.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.username.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="{% static 'vendors/@coreui/icons/svg/free.svg#cil-envelope-open' %}"></use>
+                                        </svg>
+                                    </span>
+                                    {{ form.email }}
+                                    
+                                </div>
+                                {% if form.email.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.email.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="{% static 'vendors/@coreui/icons/svg/free.svg#cil-lock-locked' %}"></use>
+                                        </svg>
+                                    </span>
+                                    {{ form.password1 }}
+                                    
+                                </div>
+                                {% if form.password1.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.password1.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="input-group mb-4">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="{% static 'vendors/@coreui/icons/svg/free.svg#cil-lock-locked' %}"></use>
+                                        </svg>
+                                    </span>
+                                    {{ form.password2 }}
+                                    
+                                </div>
+                                {% if form.password2.errors %}
+                                    <div class="text-danger">
+                                        {% for error in form.password2.errors %}
+                                            <p>{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                                <div class="input-group mb-4">
+                                    <span class="input-group-text">
+                                        <svg class="icon">
+                                            <use xlink:href="{% static 'vendors/@coreui/icons/svg/free.svg#cil-lock-locked' %}"></use>
+                                        </svg>
+                                    </span>
+                                    {{ form.verification_code }}
+                                    <button type="button" class="btn btn-outline-secondary" id="send-code-btn" onclick="sendVerificationCode()">发送验证码</button>
+                                </div>
+
+                                <!-- <div class="text-danger mb-3" style="min-height: 24px;">
+                                    {% if form.verification_code.errors %}
+                                        {% for error in form.verification_code.errors %}
+                                            <div>{{ error }}</div>
+                                        {% endfor %}
+                                    {% endif %}
+                                </div> -->
+
+                                <button class="btn btn-block btn-success" type="submit">Create Account</button>
+                            </form>
+                            <div class="row">
+                                <div class="col-12 text-end">
+                                    <a href="{% url 'accounts:login' %}" class="btn btn-link px-0">Already have an account? Login</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="{% static 'vendors/@coreui/coreui-pro/js/coreui.bundle.min.js' %}"></script>
+    <script src="{% static 'vendors/simplebar/js/simplebar.min.js' %}"></script>
+    <script src="{% static 'vendors/i18next/js/i18next.min.js' %}"></script>
+    <script src="{% static 'vendors/i18next-http-backend/js/i18nextHttpBackend.js' %}"></script>
+    <script src="{% static 'vendors/i18next-browser-languagedetector/js/i18nextBrowserLanguageDetector.js' %}"></script>
+    <script src="{% static 'js/i18next.js' %}"></script>
+    
+    <script>
+        function sendVerificationCode() {
+            const email = document.querySelector('input[name="email"]').value;
+            const sendButton = document.getElementById('send-code-btn');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+            if (!emailRegex.test(email)) {
+                alert('请输入有效的邮箱地址。');
+                return;
+            }
+
+            sendButton.disabled = true;
+            sendButton.textContent = "发送中...";
+
+            fetch("{% url 'accounts:send_code' %}", {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({ email: email })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('验证码已发送，请检查您的邮箱。');
+                    startCountdown(60);
+                } else {
+                    alert('发送失败，请重试。');
+                    sendButton.disabled = false;
+                    sendButton.textContent = "发送验证码";
+                }
+            })
+            .catch(error => {
+                alert('网络错误，请稍后重试。');
+                sendButton.disabled = false;
+                sendButton.textContent = "发送验证码";
+            });
+        }
+
+        function startCountdown(seconds) {
+            const sendButton = document.getElementById('send-code-btn');
+            let remainingTime = seconds;
+
+            sendButton.textContent = `重新发送 (${remainingTime}s)`;
+
+            const countdownInterval = setInterval(() => {
+                remainingTime -= 1;
+                if (remainingTime > 0) {
+                    sendButton.textContent = `重新发送 (${remainingTime}s)`;
+                } else {
+                    clearInterval(countdownInterval);
+                    sendButton.disabled = false;
+                    sendButton.textContent = "发送验证码";
+                }
+            }, 1000);
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+{% block title %}Agenda{% endblock %}
+
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Agenda</span></li>
+            <li class="breadcrumb-item active"><span>Show</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        <!-- 按钮和搜索框放在同一行 -->
+        <div class="mb-3 d-flex align-items-center">
+            <a href="{% url 'agenda:add_agenda' %}" class="btn btn-primary me-2">添加行程</a>
+            <a href="{% url 'agenda:add_Travelagenda' %}" class="btn btn-primary me-2">添加旅行计划</a>
+            <form class="d-flex" method="get" action="{% url 'agenda:agenda_find' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">序号</th>
+                        <th scope="col"></th>
+                        <th scope="col">日程名称</th>
+                        <th scope="col">地点信息</th>
+                        <th scope="col">出行时间</th>
+                        <th scope="col">交通方式</th>
+                        <th scope="col">操作</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% if agendas %}
+                        {% for agenda in agendas %}
+                            {% for loc in agenda.agendalocation_set.all %}
+                                <tr>
+                                    <th scope="row">{{ forloop.parentloop.counter }}</th>
+                                    <th scope="row">{{ loc.parentloop.counter }}</th>
+                                    <td>{{ agenda.title }}</td>
+                                    <td>{{ loc.departure_location }} to {{ loc.arrival_location }} <br></td>
+                                    <td>{{ loc.departure_time }} to {{ loc.arrival_time }}</td>
+                                    <td>By {{ loc.commute_info }}</td>
+                                    <td>
+                                        <form action="{% url 'agenda:delete_agenda' agenda.id %}" method="post" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">删除旅游计划</button>
+                                        </form>
+                                        <form action="{% url 'agenda:update_agenda' agenda.id %}" method="post" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-warning">修改旅游计划</button>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{% url 'agenda:delete_agendalocation' loc.id %}" method="post" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-danger">删除行程</button>
+                                        </form>
+                                        <form action="{% url 'agenda:update_agendalocation' loc.id %}" method="post" style="display:inline;">
+                                            {% csrf_token %}
+                                            <button type="submit" class="btn btn-warning">修改行程</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="6">没有找到符合条件的日程。</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

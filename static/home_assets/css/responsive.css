@@ -1,0 +1,484 @@
+
+
+/*
+Author: Bootstrapthemes
+Author URI: http://www.xpeedstudio.com
+*/
+
+/* Portrait tablets and medium desktops */
+@media (min-width: 992px) and (max-width: 1199px) {
+    body {
+        font-size: 1rem;
+    }
+    nav.navbar.bootsnav ul.nav > li > a{
+        padding: 30px 14px;
+        font-weight: 600;
+    }
+
+
+    /*Home v1*/
+    .main-newest-blog .newest-blog-item{
+        padding:30px 20px;
+    }
+    .newest-blog-item h4{
+        font-size:18px;
+    }
+
+
+
+
+    /*Home v2*/
+    .head-title h2 {
+        font-size: 38px;
+    }
+    .call-us-area .top-info{
+        font-size:15px;
+    }
+    .carousel-indicatores-homev2 .indicatior-item .v2-slid-item-icon {
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+    }
+    .carousel-indicatores-homev2 .indicatior-item .v2-slid-item-icon span.icon {
+        font-size: 1.75rem;
+        padding: 15px;
+    }
+    .carousel-indicatores-homev2 .indicatior-item h5 {
+        font-size: 14px;
+    }
+    .carousel-indicatores-homev2 .indicatior-item {
+        width: 22%;
+        margin-left: 15px;
+    }
+    .main-service-area-homev2 .divider-hr{
+        top: 290.1px;
+    }
+    .service-item-hv2 {
+        min-height: 291px;
+    }
+    /*business */
+    .business-content h2{
+        font-size:38px;
+    }
+    /*work overlay*/
+    .work-overlay h4{
+        font-size:20px;
+    }
+
+    /*news hv2 blog*/
+    .hv2-newest-blog-item .item-body h4 {
+        line-height: 1.875rem;
+        font-size: 18px;
+    }
+
+    /*footer widget*/
+    .weidgetv2-item h4{
+        font-size:20px;
+    }
+    .weidgetv2-item .widgetv2-blog .widgev1-blog-content p {
+        font-size: 12px;
+    }
+    .weidgetv2-item ul li a{
+        font-size:14px;
+    }
+    .community-list li {
+        width: 16.26%;
+    }
+    .community-list li a {
+        padding: 16px;
+        font-size: 16px;
+    }
+
+    /*about us page*/
+    .main-history .carousel-indicators li{
+        width:80px;
+    }
+    .main-history .carousel-control.right {
+        right: 5%;
+    }
+    .main-history .carousel-control.left {
+        left: 5%;
+    }
+
+
+}
+
+
+
+/* Portrait tablets and small desktops */
+@media (max-width: 991px) {
+    .sm-m-top-10{
+        margin-top:10px;
+    }
+    .sm-m-top-20{
+        margin-top:20px;
+    }
+    .sm-m-top-30{
+        margin-top:30px;
+    }
+    .sm-m-top-35{
+        margin-top:35px;
+    }
+    .sm-m-top-40{
+        margin-top:40px;
+    }
+    .sm-m-top-50{
+        margin-top:50px;
+    }
+    .sm-m-top-60{
+        margin-top:60px;
+    }
+    .sm-m-top-65{
+        margin-top:65px;
+    }
+    .sm-m-top-70{
+        margin-top:70px;
+    }
+    .sm-m-top-80{
+        margin-top:80px;
+    }
+    .sm-m-top-100{
+        margin-top:80px;
+    }
+
+    nav.navbar.bootsnav .navbar-toggle{
+        margin-top:20px;
+    }
+    .navbar{
+        min-height: 70px;
+    }
+
+    /*Home v1*/
+    .homev1 .carousel-indicators .indicatior-item.active,
+    .homev1 .carousel-indicators .indicatior-item {
+        width: 20%;
+        height: 125px;
+    }
+    .homev1 .carousel-indicators .indicatior-item.active{
+        margin-top:-5px;
+    }
+    .homev1 .carousel-indicators .indicatior-item h4{
+        font-size:18px;
+    }
+    .homev1 .carousel-inner, .homev1 .bs-slider {
+        height: 540px;
+    }
+    .homev1 {
+        position: relative;
+        height: 640px;
+    }
+    .homev1:before {
+        height: 600px;
+    }
+
+    /*main studies*/
+    .main-studies .studies-item {
+        height: 235px;
+    }
+
+    /*Home v2*/
+
+    .call-us-area .top-info{
+        font-size:13px;
+    }
+
+
+    .contact-boxv1-item .boxv1-item-img{
+        height: auto;
+    }
+    .carousel-indicatores-homev2 .indicatior-item {
+        width: 20%;
+    }
+
+
+    .carousel-indicatores-homev2 .indicatior-item.active ,
+    .carousel-indicatores-homev2 .indicatior-item {
+        margin-left: 15px;
+        margin-top: 30px;
+    }
+
+
+    .homev2 .bs-slider {
+        height: auto;
+    }
+    .homev2 .homev2-slid-img {
+        margin-top:250px;
+    }
+    .homev2-slid-img img{
+        width:60%;
+        margin: 0 auto;
+    }
+    nav.navbar.homev2-menu.bootsnav ul.nav > li > a, 
+    .hv2-main-menu-bg .navbar-nav li a {
+        color: #363636;
+    }
+
+
+    /*news hv2 letter*/
+    .newsletterv2-content .form-inline .form-group {
+        width: 90%;
+        margin: 0 auto;
+    }
+    .newsletterv2-content .form-inline .form-control{
+        width:100%;
+    }
+
+    /*footer widget hv2*/
+
+    .main-community h2{
+        font-size:34px;
+    }
+    .community-list li {
+        width: 16.1%;
+    }
+    .community-list li a {
+        padding: 20px 10px;
+        font-size: 12px;
+    }
+    .hv2-footer-menu ul li a {
+        font-size: 15px;
+        padding: 20px 10px;
+    }
+
+}
+
+
+
+/* Landscape phones and portrait tablets */
+@media  (max-width: 768px) {
+
+    .xs-m-top-10{
+        margin-top:10px;
+    }
+    .xs-m-top-20{
+        margin-top:20px;
+    }
+    .xs-m-top-30{
+        margin-top:30px;
+    }
+    .xs-m-top-35{
+        margin-top:35px;
+    }
+    .xs-m-top-40{
+        margin-top:40px;
+    }
+    .xs-m-top-50{
+        margin-top:50px;
+    }
+    .xs-m-top-60{
+        margin-top:60px;
+    }
+    .xs-m-top-65{
+        margin-top:65px;
+    }
+    .xs-m-top-70{
+        margin-top:70px;
+    }
+    .xs-m-top-80{
+        margin-top:80px;
+    }
+
+    nav.navbar.bootsnav .navbar-brand{
+        margin-left:-90px !important;
+        padding:10px 15px;
+    }
+    .attr-nav > ul > li > a{
+        padding-left:10px !important;
+    }
+    .home1_menu .attr-nav ul li.search a.hv1, 
+    .home1_menu .attr-nav ul li.cart-menu a.hv1{
+        padding:10px 10px;
+        margin: 10px;
+    }
+    .home1_menu .attr-nav ul li.side-menu a{
+        padding:8px 10px;
+    }
+
+    .border:after{
+        display: none;
+    }
+
+    .nav-top .call-us-area .navbar-brand{
+        padding-bottom: 30px; 
+    }
+
+    .main-localseo .form-inline .form-group {
+        width: 100%;
+        margin: 0 auto;
+        padding: 5px 10px;
+    }
+    .main-localseo .form-inline .form-control{
+        width:100%;
+    }
+
+
+
+    /*Home v1*/
+    .homev1 .carousel-inner, .homev1 .bs-slider {
+        height: 470px;
+    }
+    .home-one  .bs-slider .item .row img{
+        display: none;
+    }
+    .home-one .bs-slider .item .container {
+        padding-top: 50px;
+    }
+    .homev1 .bs-slider .item  {
+        padding-top: 70px
+    }
+    .homev1 .carousel-indicators .indicatior-item{
+        display: none;
+    }
+
+    .homev1 .carousel-indicators .indicatior-item.active{
+        display: block;
+        width: 50%;
+        margin-left: -25%;
+        height: 240px;
+        left: 50%;
+        position: absolute;
+    }
+    /*main studies*/
+    .main-studies .studies-item {
+        height: auto;
+    }
+
+    /*Home v2*/
+    .homev2 .bs-slider {
+        min-height: 470px;
+    }
+    .main-localseo-hv2 .form-inline .form-group {
+        width: 100%;
+    }
+
+    /*newsletter hv2*/
+    .newsletterv2-content h2{
+        font-size:30px;
+    }
+    .newsletterv2-content h2,
+    .newsletterv2-content p{
+        width:90%;
+        margin: 0 auto;
+
+    }
+
+    /*footer widget hv2*/
+    .community-list li {
+        width: 32%;
+    }
+    .community-list li a {
+        padding: 10px 10px;
+        font-size: 14px;
+    }
+    .hv2-footer-menu ul li a{
+        padding:20px 0px;
+    }
+
+
+
+    /*single blog page*/
+    .blog-post-form-area {
+        padding: 20px 30px;
+    }
+
+
+
+}
+
+
+
+
+/* Landscape phones and smaller */
+@media (max-width: 479px) {
+
+    /*    .attr-nav{
+            display: none;
+        }*/
+    .attr-nav li.side-menu{
+        display: none;
+    }
+    nav.navbar.bootsnav .navbar-brand{
+        width:38%;
+        padding:10px;
+    }
+
+    .homev1 .carousel-indicators .indicatior-item.active{
+        display: block;
+        width: 80%;
+        margin-left: -40%;
+    }
+
+
+    /*Home v2*/
+    .carousel-indicatores-homev2 .indicatior-item {
+        width: 18%;
+    }
+    .carousel-indicatores-homev2 .indicatior-item .v2-slid-item-icon{
+        width: 60px;
+        height: 60px;
+        line-height: 60px;
+    }
+    .carousel-indicatores-homev2 .indicatior-item .v2-slid-item-icon span.icon{
+        font-size: 1.575rem;
+        padding: 18px 0px;
+    }
+    /*footer widget hv2*/
+    .boxv1-item-content h4{
+        font-size:18px;
+    }
+    .weidgetv2-item h4{
+        font-size:18px;
+    }
+    .weidgetv2-item .widgetv2-blog .widgev1-blog-content p{
+        font-size:12px;
+    }
+    .main-community h2 {
+        font-size: 18px;
+        line-height: 1.5rem;
+    }
+    .community-list li {
+        width: 47%;
+    }
+    .hv2-footer-menu ul li {
+        width:100%;
+        line-height: 2rem;
+    }
+
+    /*single blog post*/
+    .newest-tips-date-time{
+        width:100%;
+        display: block;
+        margin-top: 20px;
+    }
+
+}
+
+
+@media (max-width: 400px) {
+    .carousel-indicatores-homev2 .indicatior-item .v2-slid-item-icon{
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+    }
+    .carousel-indicatores-homev2 .indicatior-item .v2-slid-item-icon span.icon{
+        font-size: 1.575rem;
+        padding: 10px 0px;
+    }
+
+}
+
+@media (max-width: 320px) {
+    .homev1 .carousel-indicators .indicatior-item.active{
+        display: block;
+        width: 100%;
+        margin-left: -50%;
+    }
+    /*    .newest-blog-item h4 {
+            font-size: 16px;
+        }
+        .newest-blog-item p {
+            font-size: 13px;
+        }*/
+
+}
+

@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="profile-container container mt-5 p-4" style="max-width: 600px; border: 1px solid #ddd; border-radius: 10px; background-color: #f9f9f9;">
+    <h2 class="text-center mb-4">个人资料</h2>
+    <div class="profile-info text-center mb-4">
+        <!-- 使用 user.profile_picture.url 动态显示用户头像 -->
+        {% if user.profile_picture %}
+            <img src="{{ user.profile_picture.url }}" alt="Profile Picture" class="rounded-circle mb-3" style="width: 150px; height: 150px; object-fit: cover;" />
+        {% else %}
+            <img class="avatar-img rounded-circle mb-3" src="{% static 'assets/img/avatars/8.jpg' %}" alt="user@email.com" style="width: 150px; height: 150px; object-fit: cover;" />
+        {% endif %}
+        <p class="text-muted">上传新的头像以更新您的个人资料图片</p>
+    </div>
+
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group mb-3">
+            <label for="username" class="form-label">用户名:</label>
+            <input type="text" name="username" value="{{ user.username }}" class="form-control" readonly />
+        </div>
+        <div class="form-group mb-3">
+            <label for="email" class="form-label">邮箱:</label>
+            <input type="email" name="email" value="{{ user.email }}" class="form-control" readonly />
+        </div>
+        <div class="form-group mb-3">
+            <label for="phone_number" class="form-label">电话号码:</label>
+            <input type="text" name="phone_number" value="{{ user.phone_number }}" class="form-control" />
+        </div>
+        <div class="form-group mb-4">
+            <label for="profile_picture" class="form-label">上传头像:</label>
+            <input type="file" name="profile_picture" class="form-control" />
+        </div>
+        <button type="submit" class="btn btn-primary w-100">更新资料</button>
+    </form>
+</div>
+{% endblock %}

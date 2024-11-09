@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2 class="mb-4">设置</h2>
+    <p class="mb-4">在这里您可以修改您的密码。</p>
+    
+    <div class="card">
+        <div class="card-header">
+            <h5 class="mb-0">密码管理</h5>
+        </div>
+        <div class="card-body">
+            <p>确保您的账户安全，定期更新密码。</p>
+            <a href="{% url 'accounts:change_password' %}" class="btn btn-primary">修改密码</a>
+        </div>
+    </div>
+
+    <div class="mt-4">
+        <a href="{% url 'dashboard:dashboard' %}" class="btn btn-secondary">返回首页</a>
+    </div>
+</div>
+{% endblock %}
