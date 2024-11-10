@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% load static%}
+{% block content %}
+  <h1>我的收支</h1>
+  <p>查看你的收支详情：</p>
+  <ul>
+    <li><a href="{% url 'consumptionANDincome:income_list' %}">收入</a></li>
+    <li><a href="{% url 'consumptionANDincome:expense_list' %}">支出</a></li>
+  </ul>
+{% endblock %}

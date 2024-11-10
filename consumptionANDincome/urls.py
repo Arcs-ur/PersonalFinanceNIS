@@ -22,4 +22,8 @@ urlpatterns = [
     path('delete_expense/<int:expense_id>/', views.delete_expense, name='delete_expense'),
     # 更新支出条目
     path('update_expense/<int:expense_id>/', views.update_expense, name='update_expense'),
+    path('expenseincome/', views.expenseincome_list, name='expenseincome_list'),
+    path('income/', views.income_list, name='income_list'),
+    path('expense/', views.expense_list, name='expense_list'),
+
 ]

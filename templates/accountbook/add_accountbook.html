@@ -16,34 +16,6 @@
 <link href="{% static 'django_select2/css/select2.min.css' %}" rel="stylesheet" />
 {% block script %}
 <script src="{% static 'django_select2/js/select2.min.js' %}"></script>
-<script>
-    $(document).ready(function() {
-        $('select').select2({
-            ajax: {
-                url: '{% url "agenda:location_search" %}',
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        q: params.term, //  搜索关键词
-                    };
-                },
-                processResults: function (data) {
-                    return {
-                        results: $.map(data.items, function (item) {
-                            return {
-                                id: item.id,
-                                text: item.name // 显示的文本
-                            };
-                        })
-                    };
-                },
-                cache: true
-            },
-            minimumInputLength: 1 // 输入至少一个字符后进行搜索
-        });
-    });
-</script>
 {% endblock %}
 {% block content %}
 <div class="container-lg px-4">

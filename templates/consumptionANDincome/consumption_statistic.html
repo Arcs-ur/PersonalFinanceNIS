@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">支出统计</h1>
+
+    <!-- 支出条目列表 -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>支出类别</th>
+          <th>金额</th>
+          <th>货币类型</th>
+          <th>支出时间</th>
+          <th>账户</th>
+          <th>账本</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for expense in consumptions %}
+          <tr>
+            <td>{{ expense.get_expense_category_display }}</td>
+            <td>{{ expense.amount }}</td>
+            <td>{{ expense.get_currency_display }}</td>
+            <td>{{ expense.expense_time }}</td>
+            <td>{{ expense.account.name }}</td>
+            <td>{{ expense.account_book.name }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6">没有找到支出记录。</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- 显示总支出 -->
+    <div class="my-4">
+      <h3>总支出：{{ total_consumption }}</h3>
+    </div>
+  </div>
+{% endblock %}

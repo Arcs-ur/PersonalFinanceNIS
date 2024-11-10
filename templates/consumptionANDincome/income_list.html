@@ -1,13 +1,14 @@
 {% extends 'base.html' %}
-{% load static%}
-{% block title %}账本{% endblock %}
+
+{% block title %}收入{% endblock %}
+
 {% block trace %}
 <div class="container-fluid px-4">
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb my-0">
             <li class="breadcrumb-item"><span>Home</span></li>
             <li class="breadcrumb-item"><span>收支</span></li>
-            <li class="breadcrumb-item active"><span>支出</span></li>
+            <li class="breadcrumb-item active"><span>收入</span></li>
         </ol>
     </nav>
 </div>
@@ -18,8 +19,8 @@
     <div class="container-lg px-4">
         <!-- 按钮和搜索框放在同一行 -->
         <div class="mb-3 d-flex align-items-center">
-            <a href="{% url 'accountbook:add_accountbook' %}" class="btn btn-primary me-2">添加账本</a>
-            <form class="d-flex" method="get" action="{% url 'accountbook:accountbook_list' %}">
+            <a href="{% url 'consumptionANDincome:add_income' %}" class="btn btn-primary me-2">添加收入</a>
+            <form class="d-flex" method="get" action="{% url 'consumptionANDincome:income_list' %}">
                 {% csrf_token %}
                 <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -32,27 +33,30 @@
                     <tr>
                         <th scope="col">序号</th>
                         <th scope="col">记录账本</th>
-                        <th scope="col">支出金额</th>
-                        <th scope="col">类别</th>
+                        <th scope="col">收入金额</th>
+                        <th scope="col">来源</th>
                         <th scope="col">日期</th>
                         <th scope="col">账户</th>
                         <th scope="col">操作</th>
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    {% if accountbooks %}
-                        {% for accountbook in accountbooks %}
+                    {% if incomes %}
+                        {% for income in incomes %}
                             <tr>
                                 <th scope="row">{{ forloop.counter }}</th>
-                                <td>{{ accountbook.name }}</td>
-                                
+                                <td>{{ income.account_book }}</td>
+                                <td>{{ income.amount }}</td>
+                                <td>{{ income.income_category }}</td>
+                                <td>{{ income.income_time }}</td>
+                                <td>{{ income.account }}</td>
                                 
                                 <td>
-                                    <form action="{% url 'accountbook:delete_accountbook' accountbook.account_book_id %}" method="post" style="display:inline;">
+                                    <form action="{% url 'consumptionANDincome:delete_income' income.income_id %}" method="post" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-danger">删除</button>
                                     </form>
-                                    <form action="{% url 'accountbook:update_accountbook' accountbook.account_book_id %}" method="post" style="display:inline;">
+                                    <form action="{% url 'consumptionANDincome:update_income' income.income_id %}" method="post" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-warning">修改</button>
                                     </form>
@@ -61,7 +65,7 @@
                         {% endfor %}
                     {% else %}
                         <tr>
-                            <td colspan="7">没有找到支出记录。</td>
+                            <td colspan="6">没有找到收入记录。</td>
                         </tr>
                     {% endif %}
                 </tbody>

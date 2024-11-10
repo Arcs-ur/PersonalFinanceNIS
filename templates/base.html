@@ -15,7 +15,7 @@
             <meta name="description" content="CoreUI - Bootstrap Admin Template">
             <meta name="author" content="Łukasz Holeczek">
             <meta name="keyword" content="Bootstrap,Admin,Template,SCSS,HTML,RWD,Dashboard">
-            <title> {% block title %} CoreUI Travel Agenda {% endblock %}</title>
+            <title> {% block title %} 这辈子攒钱这辈子花 {% endblock %}</title>
         
             <!-- CoreUI Icons CSS -->
             <link href="{% static 'css/free.min.css' %}" rel="stylesheet">
@@ -59,7 +59,7 @@
             
             <div class="sidebar sidebar-dark sidebar-fixed border-end" data-coreui="navigation" id="sidebar">
                 <div class="sidebar-header border-bottom">
-                  <div class="sidebar-brand">CoreUI</div>
+                  <div class="sidebar-brand">不想记账</div>
                 </div>
                 
                 <ul class="sidebar-nav"  data-simplebar="">
@@ -70,7 +70,7 @@
                     </a>
                   </li>
                              
-                  <li class="nav-title" data-coreui-i18n="components">Agenda</li>
+                  <li class="nav-title" data-coreui-i18n="components">这辈子开始攒钱！</li>
 
 
                   <li class="nav-group">
@@ -104,12 +104,36 @@
                     </ul>
                     
                   </li>
+                  
+                  <li class="nav-group">
+                    <a class="nav-link nav-group-toggle" href="{% url 'consumptionANDincome:expenseincome_list' %}">
+                      <i class="nav-icon bi-calendar"></i>
+                      <span>我的收支</span>
+                    </a>
+                    <ul class="nav-group-items compact">                   
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'consumptionANDincome:income_list' %}">
+                          <span class="nav-icon"><i class="bi bi-eye"></i></span> 收入
+                        </a>
+                      </li>
+                                        
+                    </ul>
+                    <ul class="nav-group-items compact">                   
+                      <li class="nav-item">
+                        <a class="nav-link" href="{% url 'consumptionANDincome:expense_list' %}">
+                          <span class="nav-icon"><i class="bi bi-eye"></i></span> 支出
+                        </a>
+                      </li>
+                                        
+                    </ul>
+                    
+                  </li>
 
-                  <li class="nav-title" data-coreui-i18n="theme">统计</li>
+                  <li class="nav-title" data-coreui-i18n="theme">没有下辈子了</li>
                   <li class="nav-group">
                     <a class="nav-link nav-group-toggle" href="">
                       <i class="nav-icon bi-chat"></i>
-                      <span>统计</span>
+                      <span>下辈子再来数钱</span>
                     </a>
                     <ul class="nav-group-items compact">
                       <li class="nav-item">

@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 {% load static%}
-{% block title %}账本{% endblock %}
+{% block title %}支出{% endblock %}
 {% block trace %}
 <div class="container-fluid px-4">
     <nav aria-label="breadcrumb">
@@ -18,8 +18,8 @@
     <div class="container-lg px-4">
         <!-- 按钮和搜索框放在同一行 -->
         <div class="mb-3 d-flex align-items-center">
-            <a href="{% url 'accountbook:add_accountbook' %}" class="btn btn-primary me-2">添加账本</a>
-            <form class="d-flex" method="get" action="{% url 'accountbook:accountbook_list' %}">
+            <a href="{% url 'consumptionANDincome:add_expense' %}" class="btn btn-primary me-2">添加支出</a>
+            <form class="d-flex" method="get" action="{% url 'consumptionANDincome:expense_list' %}">
                 {% csrf_token %}
                 <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
                 <button class="btn btn-outline-success" type="submit">Search</button>
@@ -40,19 +40,22 @@
                     </tr>
                 </thead>
                 <tbody class="table-group-divider">
-                    {% if accountbooks %}
-                        {% for accountbook in accountbooks %}
+                    {% if expenses %}
+                        {% for expense in expenses %}
                             <tr>
                                 <th scope="row">{{ forloop.counter }}</th>
-                                <td>{{ accountbook.name }}</td>
-                                
+                                <td>{{ expense.account_book }}</td>
+                                <td>{{ expense.amount }}</td>
+                                <td>{{ expense.expense_category }}</td>
+                                <td>{{ expense.expense_time }}</td>
+                                <td>{{ expense.account }}</td>
                                 
                                 <td>
-                                    <form action="{% url 'accountbook:delete_accountbook' accountbook.account_book_id %}" method="post" style="display:inline;">
+                                    <form action="{% url 'consumptionANDincome:delete_expense' expense.expense_id %}" method="post" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-danger">删除</button>
                                     </form>
-                                    <form action="{% url 'accountbook:update_accountbook' accountbook.account_book_id %}" method="post" style="display:inline;">
+                                    <form action="{% url 'consumptionANDincome:update_expense' expense.expense_id %}" method="post" style="display:inline;">
                                         {% csrf_token %}
                                         <button type="submit" class="btn btn-warning">修改</button>
                                     </form>

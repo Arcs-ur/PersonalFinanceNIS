@@ -8,4 +8,6 @@ urlpatterns = [
     path('update_fundaccount/<uuid:account_id>/', views.update_fundaccount, name='update_fundaccount'),
     path('accountbook_list/', views.accountbook_list, name='accountbook_list'),
     path('fundaccount_list/', views.fundaccount_list, name='fundaccount_list'),
+    path('delete_accountbook/<uuid:accountbook_id>/', views.delete_accountbook, name='delete_accountbook'),
+    path('delete_fundaccount/<uuid:account_id>/', views.delete_fundaccount, name='delete_fundaccount'),
 ]

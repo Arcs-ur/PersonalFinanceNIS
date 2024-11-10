@@ -52,12 +52,24 @@ def add_fundaccount(request):
     return render(request, 'accountbook/add_fundaccount.html', {'form': form})
 
 def accountbook_list(request):
-    accountbooks = AccountBook.objects.all()  # 获取所有账本
+    query = request.GET.get('q', '')  # 获取 'q' 参数，默认为空字符串
+
+    # 根据 'q' 参数过滤支出记录
+    if query:
+        accountbooks = AccountBook.objects.filter(name__icontains=query)  # 'icontains' 用于不区分大小写的模糊查询
+    else:
+        accountbooks = AccountBook.objects.all()
+      # 获取所有账本
     return render(request, 'accountbook/accountbook_list.html', {'accountbooks': accountbooks})
 
 # 显示所有账户
 def fundaccount_list(request):
-    fund_accounts = FundAccount.objects.all()  # 获取所有账户
+    query = request.GET.get('q', '')  # 获取 'q' 参数，默认为空字符串
+    if query:
+        fund_accounts = FundAccount.objects.filter(name__icontains=query)  # 'icontains' 用于不区分大小写的模糊查询
+    else:
+        fund_accounts = FundAccount.objects.all() 
+     # 获取所有账户
     return render(request, 'accountbook/fundaccount_list.html', {'fund_accounts': fund_accounts})
 
 # 删除账本

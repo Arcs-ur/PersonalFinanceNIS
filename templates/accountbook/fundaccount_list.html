@@ -1,27 +1,72 @@
 {% extends 'base.html' %}
-{% load static %}
+{% load static%}
+{% block title %}账户{% endblock %}
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>收支</span></li>
+            <li class="breadcrumb-item active"><span>支出</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
 {% block content %}
-  <h2>Fund Accounts</h2>
-  <a href="{% url 'accountbook:add_fundaccount' %}">Add New Fund Account</a>
-  <table>
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Balance</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for fund_account in fund_accounts %}
-        <tr>
-          <td>{{ fund_account.name }}</td>
-          <td>{{ fund_account.balance }}</td>
-          <td>
-            <a href="{% url 'accountbook:update_fundaccount' fund_account.account_id %}">Edit</a> | 
-            <a href="{% url 'accountbook:delete_fundaccount' fund_account.account_id %}">Delete</a>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        <!-- 按钮和搜索框放在同一行 -->
+        <div class="mb-3 d-flex align-items-center">
+            <a href="{% url 'accountbook:add_fundaccount' %}" class="btn btn-primary me-2">添加账户</a>
+            <form class="d-flex" method="get" action="{% url 'accountbook:fundaccount_list' %}">
+                {% csrf_token %}
+                <input class="form-control me-2" type="search" name="q" placeholder="Search" aria-label="Search" value="{{ request.GET.q }}">
+                <button class="btn btn-outline-success" type="submit">Search</button>
+            </form>
+        </div>
+
+        <div class="card-body">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">序号</th>
+                        <th scope="col">记录账本</th>
+                        <th scope="col">支出金额</th>
+                        <th scope="col">类别</th>
+                        <th scope="col">日期</th>
+                        <th scope="col">账户</th>
+                        <th scope="col">操作</th>
+                    </tr>
+                </thead>
+                <tbody class="table-group-divider">
+                    {% if fund_accounts %}
+                        {% for fund_account in fund_accounts %}
+                            <tr>
+                                <th scope="row">{{ forloop.counter }}</th>
+                                <td>{{ fund_account.name }}</td>
+                                <td>{{ fund_account.balance }}</td>
+                                
+                                <td>
+                                    <form action="{% url 'accountbook:delete_fundaccount' fund_account.account_id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-danger">删除</button>
+                                    </form>
+                                    <form action="{% url 'accountbook:update_fundaccount' fund_account.account_id %}" method="post" style="display:inline;">
+                                        {% csrf_token %}
+                                        <button type="submit" class="btn btn-warning">修改</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                    {% else %}
+                        <tr>
+                            <td colspan="7">没有找到支出记录。</td>
+                        </tr>
+                    {% endif %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock %}
