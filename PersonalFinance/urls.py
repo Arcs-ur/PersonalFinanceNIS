@@ -15,7 +15,7 @@ urlpatterns = [
     path("property/", include("property.urls")),  # add this
     path("dashboard/", include("dashboard.urls")),  # add this
     path("consumptionANDincome/",include("consumptionANDincome.urls")),
-    path("accounts/",include("accounts.urls"))
+    #path("accounts/",include("accounts.urls"))
     # path("", include("app.urls"))  # add this
     
 ]

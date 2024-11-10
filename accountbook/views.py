@@ -35,7 +35,9 @@ def add_accountbook(request):
     if request.method == 'POST':
         form = AccountBookForm(request.POST)
         if form.is_valid():
-            form.save()
+            accountbook = form.save(commit=False)
+            accountbook.user = request.user
+            accountbook.save()
             return redirect('accountbook:accountbook_list')  # 重定向到账本列表页面
     else:
         form = AccountBookForm()

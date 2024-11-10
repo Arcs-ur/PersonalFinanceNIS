@@ -6,7 +6,7 @@ Copyright (c) 2019 - present AppSeed.us
 
 from django.db import models
 from django.contrib.auth.models import User
-
+from django.conf import settings
 # Create your models here.
 
 from accountbook.models import FundAccount, AccountBook  # 导入 FundAccount 和 AccountBook 模型
@@ -50,7 +50,7 @@ class ExpenseEntry(models.Model):
     reimbursement = models.BooleanField(default=False)  # 是否报销
     account = models.ForeignKey(FundAccount, related_name='expense_entries', on_delete=models.CASCADE)  # 选择账户ID
     account_book = models.ForeignKey(AccountBook, related_name='expense_entries', on_delete=models.CASCADE)  # 记录账本ID
-
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
     def __str__(self):
         return f"Expense Entry {self.expense_id} - {self.get_expense_category_display()}"
 
@@ -90,7 +90,7 @@ class IncomeEntry(models.Model):
     include_in_balance = models.BooleanField(default=False)  # 是否计入收支
     account = models.ForeignKey(FundAccount, related_name='income_entries', on_delete=models.CASCADE)  # 选择账户ID
     account_book = models.ForeignKey(AccountBook, related_name='income_entries', on_delete=models.CASCADE)  # 记录账本ID
-
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
     def __str__(self):
         return f"Income Entry {self.income_id} - {self.get_income_category_display()}"
 
@@ -110,7 +110,7 @@ class MonthlyBudget(models.Model):
     total_budget = models.DecimalField(max_digits=10, decimal_places=2)  # 总预算
     currency = models.CharField(max_length=10, choices=CURRENCIES, default='CNY')  # 货币种类
     remaining_budget = models.DecimalField(max_digits=10, decimal_places=2)  # 剩余预算
-
+    #user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE) 
     def __str__(self):
         return f"Budget for {self.year}-{self.month}"
 
