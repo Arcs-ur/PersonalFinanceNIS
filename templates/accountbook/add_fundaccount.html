@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block title %}添加账户{% endblock %}
+{% block trace %}
+<div class="container-fluid px-4">
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb my-0">
+          <li class="breadcrumb-item"><span>Home</span></li>
+          <li class="breadcrumb-item"><span>账户</span></li>
+          <li class="breadcrumb-item active"><span>添加账户</span></li>
+      </ol>
+  </nav>
+</div>
+{% endblock %}
+{% load static %}
+<link href="{% static 'django_select2/css/select2.min.css' %}" rel="stylesheet" />
+{% block script %}
+<script src="{% static 'django_select2/js/select2.min.js' %}"></script>
+<script>
+    $(document).ready(function() {
+        $('select').select2({
+            ajax: {
+                url: '{% url "agenda:location_search" %}',
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        q: params.term, //  搜索关键词
+                    };
+                },
+                processResults: function (data) {
+                    return {
+                        results: $.map(data.items, function (item) {
+                            return {
+                                id: item.id,
+                                text: item.name // 显示的文本
+                            };
+                        })
+                    };
+                },
+                cache: true
+            },
+            minimumInputLength: 1 // 输入至少一个字符后进行搜索
+        });
+    });
+</script>
+{% endblock %}
+{% block content %}
+<div class="container-lg px-4">
+    <div class="card-body">
+        <h2>添加账本</h2>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-primary">提交</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

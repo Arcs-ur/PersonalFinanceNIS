@@ -119,3 +119,6 @@ class MonthlyBudget(models.Model):
         if not self.remaining_budget:
             self.remaining_budget = self.total_budget
         super(MonthlyBudget, self).save(*args, **kwargs)
+
+    class Meta:
+        unique_together = ('year', 'month')

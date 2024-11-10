@@ -29,9 +29,11 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'app'  # Enable the inner app 
+     # Enable the inner app 
     'accountbook',
-    'property'
+    'property',
+    'consumptionANDincome',
+    'dashboard',
 ]
 
 MIDDLEWARE = [
@@ -44,15 +46,15 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'core.urls'
+ROOT_URLCONF = 'PersonalFinance.urls'
 LOGIN_REDIRECT_URL = "home"   # Route defined in app/urls.py
 LOGOUT_REDIRECT_URL = "home"  # Route defined in app/urls.py
-TEMPLATE_DIR = os.path.join(BASE_DIR, "core/templates")  # ROOT dir for templates
+TEMPLATE_DIR = os.path.join(BASE_DIR, "/templates")  # ROOT dir for templates
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [TEMPLATE_DIR],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -65,7 +67,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = 'PersonalFinance.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
@@ -115,9 +117,9 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # STATIC_ROOT production load 
-STATIC_ROOT = PROJECT_DIR.child('core').child('staticfiles')
+STATIC_ROOT = PROJECT_DIR.child('PersonalFinance').child('staticfiles')
 
 # STATIC_ROOT development load 
 STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "core/static"),
+    os.path.join(BASE_DIR, "PersonalFinance/static"),
 )
