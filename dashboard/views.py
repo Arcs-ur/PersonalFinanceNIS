@@ -9,7 +9,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.template import loader
 from django.http import HttpResponse
 from .forms import AccountBookForm, FundAccountForm
-
+from django.utils import timezone
 @login_required(login_url="/login/")
 def index(request):
     return render(request, "index.html")
@@ -52,10 +52,6 @@ def add_fundaccount(request):
 
 def dashboard(request):
     # 当前时间
-    now = timezone.now() - timedelta(days=2)
-    # 计算一周后的时间
-    one_week_later = now + timedelta(days=7)
-
     # # 获取一周内的 AgendaLocation 实例，并限制最多 20 条
     # agendas = AgendaLocation.objects.filter(
     #     agenda__user=request.user,

@@ -6,11 +6,10 @@ from django.core.cache import cache
 from django.contrib.auth.forms import PasswordChangeForm
 
 class CustomUserCreationForm(UserCreationForm):
-    verification_code = forms.CharField(max_length=6, required=True, label="验证码", widget=forms.TextInput(attrs={'placeholder': '请输入验证码'}))
-
+    
     class Meta:
         model = CustomUser
-        fields = ['username', 'email', 'password1', 'password2', 'verification_code']
+        fields = ['username', 'email', 'password1', 'password2']
     
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -19,7 +18,7 @@ class CustomUserCreationForm(UserCreationForm):
         self.fields['email'].widget.attrs.update({'placeholder': 'Email'})
         self.fields['password1'].widget.attrs.update({'placeholder': 'Password'})
         self.fields['password2'].widget.attrs.update({'placeholder': 'Repeat password'})
-        self.fields['verification_code'].widget.attrs.update({'placeholder': '请输入验证码'})
+        
 
     def clean_username(self):
         username = self.cleaned_data.get("username")
@@ -64,14 +63,6 @@ class CustomUserCreationForm(UserCreationForm):
 
         return cleaned_data
     
-    def clean_verification_code(self):
-        code = self.cleaned_data.get('verification_code')
-        email = self.cleaned_data.get('email')
-
-        stored_code = cache.get(email)
-        if code != stored_code:
-            raise ValidationError("验证码错误，请重新输入。")
-        return code
 
 class ResetPasswordForm(forms.Form):
     new_password = forms.CharField(widget=forms.PasswordInput(attrs={'placeholder': 'New Password'}))

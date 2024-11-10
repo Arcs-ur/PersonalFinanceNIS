@@ -14,58 +14,5 @@
 {% endblock %}
 
 {% block content %}
-<!-- <div class="body flex-grow-1">
-    <div class="container-lg px-4">
-        <h2>我的行程</h2>
-
-        <div class="table-responsive">
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                       
-                        <th class="bg-body-secondary">出发地</th>
-                        <th class="bg-body-secondary">目的地</th>
-                        <th class="bg-body-secondary text-center">出发时间</th>
-                     
-                      
-                        <th class="bg-body-secondary text-center">进度</th>
-                       
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for agenda in agendas %}
-                    <tr>
-                       
-                        <td>{{ agenda.departure_location }}</td>
-                        <td>{{ agenda.arrival_location }}</td>
-                        <td class="text-center">{{ agenda.departure_time }}</td>
-                     
-                      
-                        <td class="text-center">
-                            <div class="progress">
-                                <div class="progress-bar" role="progressbar" 
-                                     style="width: {{ agenda.calculate_progress }}%;" 
-                                     aria-valuenow="{{ agenda.calculate_progress }}" 
-                                     aria-valuemin="0" aria-valuemax="100">
-                                    {{ agenda.calculate_progress }}%
-                                </div>
-                            </div>
-                        </td>
-                        
-                    </tr>
-                    {% empty %}
-                    <tr>
-                        <td colspan="8" class="text-center">您未来一周内没有任何行程计划。</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </div>
-
-        <div class="mb-4">
-            <h4>添加新的日程</h4>
-            <a href="/agenda/agendas/addtrip" class="btn btn-info mt-2">添加日程</a>
-        </div>
-    </div>
-</div> -->
+<p>还没写</p>
 {% endblock %}

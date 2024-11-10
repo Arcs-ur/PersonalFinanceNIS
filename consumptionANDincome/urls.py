@@ -4,6 +4,7 @@ app_name = 'consumptionANDincome'
 
 urlpatterns = [
     # 收入统计页面
+    path('', views.income_list, name='income_list'),
     path('income_statistic/', views.income_statistic, name='income_statistic'),
     # 支出统计页面
     path('consumption_statistic/', views.consumption_statistic, name='consumption_statistic'),

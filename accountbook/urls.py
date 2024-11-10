@@ -2,6 +2,7 @@ from django.urls import path
 from . import views
 app_name = 'accountbook'
 urlpatterns = [
+    path('', views.accountbook_list, name='accountbook_list'),
     path('add_accountbook/', views.add_accountbook, name='add_accountbook'),  # URL for adding an AccountBook
     path('add_fundaccount/', views.add_fundaccount, name='add_fundaccount'),  # URL for adding a FundAccount
     path('update_accountbook/<uuid:accountbook_id>/', views.update_accountbook, name='update_accountbook'),
