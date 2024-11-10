@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Account Books</h2>
+  <a href="{% url 'accountbook:add_accountbook' %}">Add New AccountBook</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for accountbook in accountbooks %}
+        <tr>
+          <td>{{ accountbook.name }}</td>
+          <td>
+            <a href="{% url 'accountbook:update_accountbook' accountbook.account_book_id %}">Edit</a> | 
+            <a href="{% url 'accountbook:delete_accountbook' accountbook.account_book_id %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

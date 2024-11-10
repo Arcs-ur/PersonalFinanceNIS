@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block title %}更新 {{ loc.agenda.title }}{% endblock %}
+{% block trace %}
+<div class="container-fluid px-4">
+  <nav aria-label="breadcrumb">
+      <ol class="breadcrumb my-0">
+          <li class="breadcrumb-item"><span>Home</span></li>
+          <li class="breadcrumb-item"><span>Agenda</span></li>
+          <li class="breadcrumb-item active"><span>Update</span></li>
+      </ol>
+  </nav>
+</div>
+{% endblock %}
+{% block content %}
+<div class="container">
+    <h1>更新 {{ loc.agenda.title }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        {{ agenda_form.as_p }}
+        <!-- <div class="mb-3">
+            <label for="title">日程名称:</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ agenda_form.agenda.title.value}}" required>
+        </div> -->
+        <button type="submit" class="btn btn-primary">保存修改</button>
+        <a href="{% url 'agenda:agenda_list' %}" class="btn btn-secondary">取消</a>
+    </form>
+</div>
+{% endblock %}

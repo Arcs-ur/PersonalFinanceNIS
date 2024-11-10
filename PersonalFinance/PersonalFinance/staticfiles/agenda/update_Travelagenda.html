@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block title %}更新 {{ agenda.title }}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1>更新 {{ agenda.title }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="title">日程名称:</label>
+            <input type="text" name="title" id="title" class="form-control" value="{{ agenda_form.title.value|default_if_none:agenda.title }}" required>
+        </div>
+        <button type="submit" class="btn btn-primary">保存修改</button>
+        <a href="{% url 'agenda:agenda_list' %}" class="btn btn-secondary">取消</a>
+    </form>
+</div>
+{% endblock %}

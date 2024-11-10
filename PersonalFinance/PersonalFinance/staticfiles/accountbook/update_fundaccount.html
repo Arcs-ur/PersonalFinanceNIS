@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Update Fund Account</h2>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save Changes</button>
+  </form>
+  <br>
+  <a href="{% url 'accountbook:fundaccount_list' %}">Back to Fund Accounts</a>
+{% endblock %}

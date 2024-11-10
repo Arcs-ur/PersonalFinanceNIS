@@ -1,0 +1,198 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item active"><span>LLM</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="mt-4">根据目的地生成旅游日程规划</h1>
+    <form id="itineraryForm">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="destination" class="form-label">目的地</label>
+            <input type="text" class="form-control" id="destination" name="destination" placeholder="输入目的地" required>
+        </div>
+        
+        <div class="mb-3">
+            <label for="departure_city" class="form-label">出发城市</label>
+            <input type="text" class="form-control" id="departure_city" name="departure_city" placeholder="输入出发城市" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="departure_date" class="form-label">出发时间</label>
+            <input type="date" class="form-control" id="departure_date" name="departure_date" required>
+        </div>
+        <div class="mb-3">
+            <label for="return_date" class="form-label">返回时间</label>
+            <input type="date" class="form-control" id="return_date" name="return_date" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="play_type" class="form-label">倾向的游玩类型</label>
+            <select class="form-multi-select" multiple data-coreui-search="true" id="play_type" name="play_type">
+                <option value="FAMILY">亲子路线</option>
+                <option value="CITYSCAPE">城市景观</option>
+                <option value="NATURE">自然景观</option>
+                <option value="CULTURE">历史人文</option>
+                <option value="ADVENTURE">冒险探索</option>
+                <option value="SPORTS">运动休闲</option>
+                <optgroup label="我还关注于">
+                  <option value="FOOD">美食</option>
+                  <option value="SHOPPING">购物</option>
+                </optgroup>
+              </select>
+            <!-- <select class="form-control" id="play_type" name="play_type">
+                <option value="FAMILY">亲子路线</option>
+                <option value="CITYSCAPE">城市景观</option>
+                <option value="NATURE">自然景观</option>
+                <option value="CULTURE">历史人文</option>
+                <option value="ADVENTURE">冒险探索</option>
+                <option value="SPORTS">运动休闲</option>
+            </select> -->
+        </div>
+
+        <div class="mb-3">
+            <label for="must_play" class="form-label">我很想去</label>
+            <input type="text" class="form-control" id="must_play" name="must_play" placeholder="输入一定要去的景点" required>
+        </div>
+
+        <div class="mb-3">
+            <label for="hotel_price" class="form-label">旅馆价位偏好</label>
+            <select class="form-multi-select" multiple data-coreui-search="true" id="hotel_price" name="hotel_price">
+                <option value="400以内">经济型（400以内）</option>
+                <option value="400到800">中档(400-800)</option>
+                <option value="800以上">高档(800以上)</option>
+                <option value="都可以">无所谓</option>
+            </select>
+        </div>
+
+
+
+
+        <button type="submit" class="btn btn-primary">生成日程</button>
+    </form>
+    
+    <div id="itineraryResult" class="mt-5" style="display: none;">
+        <h2>您的旅游日程</h2>
+        <ul id="itineraryList" class="list-group"></ul>
+    </div>
+    <button id="saveItinerary" class="btn btn-secondary mt-3">保存日程</button>
+</div>
+
+
+<script>
+
+    document.getElementById('itineraryForm').addEventListener('submit', async function(event) {
+        event.preventDefault(); // 防止表单默认提交
+
+        const departureCity = document.getElementById('departure_city').value;
+        const destination = document.getElementById('destination').value;
+        const departureDate = document.getElementById('departure_date').value;
+        const returnDate = document.getElementById('return_date').value;
+        const playType = document.getElementById('play_type').value;
+        const hotelPrice = document.getElementById('hotel_price').value;
+        const mustplay = document.getElementById('must_play').value;
+
+
+        // 发送请求到后端API
+        try {
+            const response = await fetch('call_api/', {  // 确保这个URL是你Django后端的API路径
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // 发送CSRF令牌
+                },
+                body: JSON.stringify({
+                    departure_city: departureCity,
+                    destination: destination,
+                    departure_date: departureDate,
+                    return_date: returnDate,
+                    play_type: playType,
+                    hotel_price: hotelPrice,
+                    must_play: mustplay
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('网络响应不正常');
+            }
+            else{
+                alert('正在生成哦~')
+            }
+
+            const data = await response.json(); // 将响应解析为JSON
+            itinerary = data.result; // 从JSON中提取结果
+            // 显示结果
+            document.getElementById('itineraryList').innerHTML = itinerary.split('\n').map(item => `<li class="list-group-item">${item}</li>`).join('');
+            document.getElementById('itineraryResult').style.display = 'block';
+        } catch (error) {
+            console.error('发生错误:', error);
+            alert(`生成日程时出错：${error.message}`);
+        }
+    });
+        
+    document.getElementById('saveItinerary').addEventListener('click', async function(){
+        const destination = document.getElementById('destination').value;
+        const itineraryItems = Array.from(document.querySelectorAll('#itineraryList .list-group-item')).map(item => item.innerText);
+      
+        const output = document.createElement('div');
+        const trans = itineraryItems
+        output.innerText = JSON.stringify(itineraryItems, null, 2); // 格式化为可读的字符串
+        //document.body.appendChild(output); // 添加到页面的末尾
+
+        if (itineraryItems === '') {
+            alert('请先生成日程！');
+            return;
+        }
+        try {
+            const response = await fetch('agendas/import/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'  // 发送CSRF令牌
+                },
+                body: JSON.stringify({
+                    'itinerary': trans ,
+                    'agenda':`${destination} Trip`
+                })
+            });
+
+            if (!response.ok) {
+                throw new Error('保存日程失败');
+            }
+            
+            // 保存日程名称到 agendas/addtrip
+            // const tripNameResponse = await fetch('agendas/addtrip/', {
+            //     method: 'POST',
+            //     headers: {
+            //         'Content-Type': 'application/json',
+            //         'X-CSRFToken': '{{ csrf_token }}'  // 发送CSRF令牌
+            //     },
+            //     body: JSON.stringify({
+            //         'title': `${destination} Trip`
+            //     })
+            // });
+
+            // if (!tripNameResponse.ok) {
+            //     throw new Error('保存日程名称失败');
+            // }
+            else{
+                alert('日程保存成功！');
+            }
+        } catch (error) {
+            console.error('发生错误:', error);
+            alert(`保存日程时出错：${error.message}`);
+        }
+        });
+</script>
+{% endblock %}

@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'property',
     'consumptionANDincome',
     'dashboard',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -111,15 +112,5 @@ USE_L10N = True
 
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.0/howto/static-files/
-
-STATIC_URL = '/static/'
-
-# STATIC_ROOT production load 
-STATIC_ROOT = PROJECT_DIR.child('PersonalFinance').child('staticfiles')
-
-# STATIC_ROOT development load 
-STATICFILES_DIRS = (
-    os.path.join(BASE_DIR, "PersonalFinance/static"),
-)
+STATIC_URL = 'static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]

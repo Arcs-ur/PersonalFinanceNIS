@@ -1,0 +1,324 @@
+﻿{% load static %}
+<!doctype html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang=""> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" lang=""> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9" lang=""> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <title>Travel Agenda</title>
+        <meta name="description" content="">
+        <meta http-equiv='X-UA-Compatible' content='IE=edge'>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/png" href="{% static 'home_assets/favicon.png' %}">
+
+        <!-- Google fonts links -->
+        <link href="https://fonts.googleapis.com/css?family=Droid+Sans:400,700|Heebo:100,300,400,500,700,800,900|Nunito" rel="stylesheet">
+
+        <!-- For Plugins external css -->
+        <link rel="stylesheet" href="{% static 'home_assets/css/plugins.css' %}">
+        <link rel="stylesheet" href="{% static 'home_assets/css/bootstrap-touch-slider.css' %}">
+
+        <!-- Theme custom css -->
+        <link rel="stylesheet" href="{% static 'home_assets/css/style.css' %}">
+        <!-- <link rel="stylesheet" href="{% static 'home_assets/css/colors/blue.css' %}"> -->
+
+        <!-- Theme Responsive css -->
+        <link rel="stylesheet" href="{% static 'home_assets/css/responsive.css' %}" />
+
+        <script src="{% static 'home_assets/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js' %}"></script>
+    </head>
+
+    <body data-spy="scroll" data-target=".navbar-collapse">
+
+        <!-- Preloader -->
+        <div class="preloader loaderbox">
+            <div id="cupcake" class="loaderbox">
+                <span class="letter">L</span>
+                <div class="cupcakeCircle loaderbox"><div class="cupcakeInner loaderbox"><div class="cupcakeCore loaderbox"></div></div></div>
+                <span class="letter loaderbox">A</span><span class="letter loaderbox">D</span><span class="letter loaderbox">I</span><span class="letter loaderbox">N</span><span class="letter loaderbox">G</span>
+            </div>
+        </div>
+        <!--End off Preloader -->
+
+
+
+        <!--Home page style-->
+
+      
+        
+
+
+
+        <div class="culmn">
+
+            <section id="homev1" class="homev1 home-one">
+        
+                <div id="bootstrap-touch-slider" class="carousel bs-slider fade  control-round indicators-line kenburns_zoomInOut" data-ride="carousel" data-interval="10000" >
+                    <!-- Wrapper For Slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <!-- First Slide -->
+                        <div class="item active">
+                            <!-- Slide Background -->
+                            <img src="{% static 'home_assets/images/slide-bg-01.jpg' %}" alt="SeoPress Slider" />
+                            <div class="bs-slider-overlay"></div>
+        
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-8 col-md-offset-2">
+                                        <div class="slide-text slide_style_center">
+                                            <h1 class="text-white" data-animation="animated zoomInRight">TravelAgenda: 智能旅游推荐系统</h1>
+<p class="text-white m-top-10" data-animation="animated fadeInLeft">我们的 TravelAgenda 系统利用先进的算法，为每位用户提供量身定制的旅游推荐，无论您是短途出游还是长途旅行，我们都会根据您的兴趣和需求，精心规划最佳行程。</p>
+
+                                                <a class="btn btn-primary btn-round m-top-30" data-animation="animated fadeInLeft" href="{% url 'accounts:login' %}" >Login</a>
+                                                <a class="btn btn-default btn-round m-top-30" data-animation="animated fadeInRight" href="{% url 'accounts:register' %}" >Register</a>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Slide -->
+        
+                        <!-- Second Slide -->
+                        <div class="item">
+                            <img src="{% static 'home_assets/images/slide-bg-02.jpg' %}" alt="SeoPress Slider" />
+                            <div class="bs-slider-overlay"></div>
+                            <div class="container">
+                                <div class="row">
+                                    <!-- Slide Text Layer -->
+                                    <div class="col-md-6">
+                                        <div class="slide-text slide_style_left">
+                                            <h1 class="text-white" data-animation="animated fadeInRight">全球领先的自动旅游推荐系统</h1>
+                                            <p class="text-white m-top-10" data-animation="animated zoomInLeft">我们的 TravelAgenda 系统根据每位用户的需求和兴趣，提供全面的个性化旅游推荐，确保您的每一次旅行都独特而难忘。</p>
+
+        
+                                            <a class="btn btn-primary btn-round m-top-30" data-animation="animated fadeInLeft" href="{% url 'accounts:login' %}" >Login</a>
+                                            <a class="btn btn-default btn-round m-top-30" data-animation="animated fadeInRight" href="{% url 'accounts:register' %}" >Register</a>
+                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Slide -->
+        
+                        <!-- Third Slide -->
+                        <div class="item">
+                            <img src="{% static 'home_assets/images/slide-bg-03.jpg' %}" alt="SeoPress Slider" />
+                            <div class="bs-slider-overlay"></div>
+                            <div class="container">
+                                <div class="row">
+                                    <!-- Slide Text Layer -->
+                                    <div class="col-md-6">
+                                        <div class="slide-text slide_style_left">
+                                            <h1 class="text-white" data-animation="animated fadeInDown">满足您的旅游推荐需求</h1>
+<p class="text-white m-top-10" data-animation="animated fadeInLeft">我们的 TravelAgenda 系统为每位用户提供个性化的旅游推荐，确保每个旅行计划都符合您的独特需求和偏好。</p>
+
+                                            <a class="btn btn-primary btn-round m-top-30" data-animation="animated fadeInLeft" href="{% url 'accounts:login' %}" >Login</a>
+                                                <a class="btn btn-default btn-round m-top-30" data-animation="animated fadeInRight" href="{% url 'accounts:register' %}" >Register</a>
+                                                
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+        
+                        <!-- Fourth Slide -->
+                        <div class="item">
+                            <img src="{% static 'home_assets/images/slide-bg-04.jpg' %}" alt="SeoPress Slider" />
+                            <div class="bs-slider-overlay"></div>
+                            <div class="container">
+                                <div class="row">
+                                    <!-- Slide Text Layer -->
+                                    <div class="col-md-6">
+                                        <div class="slide-text slide_style_left">
+                                            <h1 class="text-white" data-animation="animated fadeInLeft">TravelAgenda <br /> 满足您的旅游推荐需求</h1>
+<p class="text-white m-top-10" data-animation="animated fadeInRight">我们的 TravelAgenda 系统根据每位用户的需求，提供全面的个性化旅游推荐，无论旅行大小，确保每次出行都独特而难忘。</p>
+
+                                            <a class="btn btn-primary btn-round m-top-30" data-animation="animated fadeInLeft" href="{% url 'accounts:login' %}" >Login</a>
+                                            <a class="btn btn-default btn-round m-top-30" data-animation="animated fadeInRight" href="{% url 'accounts:register' %}" >Register</a>
+                                                
+                                        </div>
+                                    </div>
+        
+                                </div>
+                            </div>
+                        </div>
+                        <!-- End of Slide -->
+                    </div><!-- End of Wrapper For Slides -->
+                    <!-- carousel indicators -->
+                    <div class="carousel-indicators text-center">
+                        <div data-target="#bootstrap-touch-slider" data-slide-to="0" class="active indicatior-item text-center bg-black"> 
+                            <div class="slid-number">1</div>
+                            <div class="sp-thumbnail-title text-white m-top-10">
+                                <h4>推荐日程</h4>
+                            </div>
+                            <div class="hidden-sm carousel-indicators-description bg-info text-white m-top-20">
+                                <p class="bg-info">根据您的兴趣和需求，自动生成个性化的旅行日程，让您的每次出行更加轻松。</p>
+                            </div>
+                        </div>
+                    
+                        <div data-target="#bootstrap-touch-slider" data-slide-to="1" class="indicatior-item text-center bg-black">
+                            <div class="slid-number">2</div>
+                            <div class="sp-thumbnail-title text-white m-top-10">
+                                <h4>发帖子</h4>
+                            </div>
+                            <div class="hidden-sm carousel-indicators-description bg-info text-white m-top-20">
+                                <p>与其他旅行者分享您的经验，发布精彩的旅行故事和照片。</p>
+                            </div>
+                        </div>
+                    
+                        <div data-target="#bootstrap-touch-slider" data-slide-to="2" class="indicatior-item text-center bg-black">
+                            <div class="slid-number">3</div>
+                            <div class="sp-thumbnail-title text-white m-top-10">
+                                <h4>景点查询</h4>
+                            </div>
+                            <div class="hidden-sm carousel-indicators-description bg-info text-white m-top-20">
+                                <p>轻松查询您周围的热门景点，获取详细信息和用户评价。</p>
+                            </div>
+                        </div>
+                    
+                        <div data-target="#bootstrap-touch-slider" data-slide-to="3" class="indicatior-item text-center bg-black">
+                            <div class="slid-number">4</div>
+                            <div class="sp-thumbnail-title text-white m-top-10">
+                                <h4>日程管理</h4>
+                            </div>
+                            <div class="hidden-sm carousel-indicators-description bg-info text-white m-top-20">
+                                <p>高效管理您的旅行日程，确保每个细节都不被遗漏。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div><!-- End of Bootstrap Slider -->
+            </section><!-- End off homev1 section -->
+            <section id="service" class="service sections">
+                <div class="container">
+            
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="head-title text-center">
+                                <h2 class="text-black">TravelAgenda 是您智能旅游的最佳伙伴</h2>
+                                <p class="m-top-10 text-black">根据您的需求和兴趣，为您定制完美的旅行计划，让您的每一次出行都充满惊喜和便捷。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+            
+                    <div class="row">
+                        <div class="main-service-area text-center m-top-80">
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item sm-m-top-65">
+                                    <div class="service-icon">
+                                        <img src="{% static 'home_assets/images/service1.png' %}" alt="" />
+                                    </div>
+                                    <h5 class="text-info m-top-50">智能推荐</h5>
+                                    <p class="text-black m-top-20">根据您的偏好和需求，自动生成个性化的旅行日程，让出行更轻松。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item sm-m-top-65">
+                                    <div class="service-icon">
+                                        <img src="{% static 'home_assets/images/service3.png' %}" alt="" />
+                                    </div>
+                                    <h5 class="text-info m-top-50">景点查询</h5>
+                                    <p class="text-black m-top-20">轻松查找周边的热门景点，获取详细信息和用户评价。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item sm-m-top-65">
+                                    <div class="service-icon">
+                                        <img src="{% static 'home_assets/images/service2.png' %}" alt="" />
+                                    </div>
+                                    <h5 class="text-info m-top-50">日程管理</h5>
+                                    <p class="text-black m-top-20">高效管理旅行日程，确保每个细节都不被遗漏，让您安心出行。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item m-top-65">
+                                    <div class="service-icon">
+                                        <img src="{% static 'home_assets/images/service4.png' %}" alt="" />
+                                    </div>
+                                    <h5 class="text-info m-top-50">发布分享</h5>
+                                    <p class="text-black m-top-20">与其他旅行者分享您的旅行故事，发布精彩照片，建立互动。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item m-top-65">
+                                    <div class="service-icon">
+                                        <img src="{% static 'home_assets/images/service5.png' %}" alt="" />
+                                    </div>
+                                    <h5 class="text-info m-top-50">个性化建议</h5>
+                                    <p class="text-black m-top-20">根据您的旅行习惯和喜好，为您推荐最佳旅游路线和活动。</p>
+                                </div>
+                            </div>
+                            <div class="col-md-4 col-sm-6">
+                                <div class="service-item m-top-65">
+                                    <div class="service-icon">
+                                        <img src="{% static 'home_assets/images/service6.png' %}" alt="" />
+                                    </div>
+                                    <h5 class="text-info m-top-50">社区互动</h5>
+                                    <p class="text-black m-top-20">加入旅行社区，获取旅行建议，与其他旅行者分享经验。</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End off row -->
+                </div><!-- End off container -->
+            </section><!-- End off Service Section -->
+            
+            <section id="leading" class="leading bg-primary sections2">
+                <div class="container">
+                    <div class="row">
+                        <div class="main-leading">
+                            <div class="col-md-6">
+                                <div class="leading-content">
+                                    <div class="head-title">
+                                        <h2 class="text-white">放松心情，尽情探索旅行的乐趣。</h2>
+                                        <p class="m-top-30 text-white">根据用户反馈，TravelAgenda 总是能为您提供最佳的个性化旅行推荐。</p>
+            
+                                        <div class="separator2 hv2"><span></span><span></span><span></span></div>
+                                    </div>
+            
+                                    <p class="m-top-40">我们是领先的智能旅游推荐平台，提供个性化的旅行日程、景点查询、发帖子分享和日程管理服务，帮助您轻松规划每一次出行。</p>
+                                    <a href="" class="btn btn-default btn-round m-top-20">了解我们的团队</a>
+            
+                                </div>
+                            </div>
+                            <div class="col-md-5">
+                                <div class="leading-img sm-m-top-50">
+                                    <img src="{% static 'home_assets/images/leading-img.png' %}" alt="" />
+                                </div>
+                            </div>
+                        </div>
+                    </div><!-- End off row-->
+                </div><!-- End off container -->
+            </section>
+            <!-- End off leading section-->
+        </div>
+        
+
+
+
+        <!-- JS includes -->
+        <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-migrate-3.3.2.min.js"></script> -->
+        
+        <script src="{% static 'home_assets/js/vendor/jquery-1.11.2.min.js' %}"></script>
+        <script src="{% static 'home_assets/js/vendor/bootstrap.js' %}"></script>
+        <!-- <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script> -->
+        <!-- <script src="{% static 'home_assets/js/vendor/jquery.js' %}"></script> -->
+        <script src="{% static 'home_assets/js/jquery.magnific-popup.js' %}"></script>
+        <script src="{% static 'home_assets/js/jquery.easing.1.3.js' %}"></script>
+        <script src="{% static 'home_assets/js/jquery.touchSwipe.min.js' %}"></script>
+        <script src="{% static 'home_assets/js/bootsnav.js' %}"></script>
+        <script src="{% static 'home_assets/js/jquery.formchimp.js' %}"></script>
+
+        <script src="{% static 'home_assets/js/plugins.js' %}"></script>
+        <script src="{% static 'home_assets/js/main.js' %}"></script>
+
+
+    </body>
+</html>
+

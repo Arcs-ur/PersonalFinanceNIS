@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="container">
+    <h1 class="my-4">收入统计</h1>
+
+    <!-- 收入条目列表 -->
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>收入类别</th>
+          <th>金额</th>
+          <th>货币类型</th>
+          <th>收入时间</th>
+          <th>账户</th>
+          <th>账本</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for income in incomes %}
+          <tr>
+            <td>{{ income.get_income_category_display }}</td>
+            <td>{{ income.amount }}</td>
+            <td>{{ income.get_currency_display }}</td>
+            <td>{{ income.income_time }}</td>
+            <td>{{ income.account.name }}</td>
+            <td>{{ income.account_book.name }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="6">没有找到收入记录。</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+
+    <!-- 显示总收入 -->
+    <div class="my-4">
+      <h3>总收入：{{ total_income }}</h3>
+    </div>
+  </div>
+{% endblock %}

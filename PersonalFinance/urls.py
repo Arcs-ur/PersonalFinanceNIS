@@ -9,10 +9,12 @@ from django.urls import path, include  # add this
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("authentication.urls")),  # add this
+    # path("", include("authentication.urls")),  # add this
     path("accountbook/", include("accountbook.urls")),  # add this
     path("property/", include("property.urls")),  # add this
     path("dashboard/", include("dashboard.urls")),  # add this
+    path("consumptionANDincome/",include("consumptionANDincome.urls")),
+    path("accounts/",include("accounts.urls"))
     # path("", include("app.urls"))  # add this
     
 ]

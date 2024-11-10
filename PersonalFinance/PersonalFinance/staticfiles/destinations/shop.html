@@ -1,0 +1,99 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Attractions{% endblock %}
+
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Destinations</span></li>
+            <li class="breadcrumb-item active"><span>Attractions</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        <div class="d-flex justify-content-between mb-3">
+            <form method="get" action="{% url 'destinations:shop' %}">
+                {% csrf_token %}
+                <div class="input-group">
+                    <select class="form-select" name="district">
+                        <option value="">选择地区</option>
+                        <option value="黄浦区" {% if request.GET.district == '黄浦区' %}selected{% endif %}>黄浦区</option>
+                        <option value="闵行区" {% if request.GET.district == '闵行区' %}selected{% endif %}>闵行区</option>
+                        <option value="长宁区" {% if request.GET.district == '长宁区' %}selected{% endif %}>长宁区</option>
+                        <option value="徐汇区" {% if request.GET.district == '徐汇区' %}selected{% endif %}>徐汇区</option>
+                        <option value="杨浦区" {% if request.GET.district == '杨浦区' %}selected{% endif %}>杨浦区</option>
+                        <option value="普陀区" {% if request.GET.district == '普陀区' %}selected{% endif %}>普陀区</option>
+                        <option value="虹口区" {% if request.GET.district == '虹口区' %}selected{% endif %}>虹口区</option>
+                        <option value="浦东新区" {% if request.GET.district == '浦东新区' %}selected{% endif %}>浦东新区</option>
+                    </select>
+                    <select class="form-select" name="stars">
+                        <option value="">选择星级</option>
+                        <option value="1" {% if request.GET.stars == '1' %}selected{% endif %}>1星</option>
+                        <option value="2" {% if request.GET.stars == '2' %}selected{% endif %}>2星</option>
+                        <option value="3" {% if request.GET.stars == '3' %}selected{% endif %}>3星</option>
+                        <option value="4" {% if request.GET.stars == '4' %}selected{% endif %}>4星</option>
+                        <option value="5" {% if request.GET.stars == '5' %}selected{% endif %}>5星</option>
+                    </select>
+                    <button class="btn btn-outline-secondary" type="submit">搜索</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        {% if destinations %}
+            <div class="d-flex flex-wrap">
+                {% for destination in destinations %}
+                <div class="card m-2" style="width: 18rem;">
+                    <img src="{{ destination.image.url }}" class="card-img-top" alt="{{ destination.name }}"> <!-- 动态加载图片 -->
+                    <div class="card-body">
+                        <h5 class="card-title"><strong>{{ destination.name }}</strong></h5>
+                        <p class="card-text">{{ destination.introduction|truncatewords:20 }}</p> <!-- 简介缩短为20个单词 -->
+                        <button type="button" class="btn btn-primary" data-coreui-toggle="modal" data-coreui-target="#modal-{{ destination.id }}">
+                            更多信息
+                        </button>
+                        
+                        <!-- Modal -->
+                        <div class="modal fade" id="modal-{{ destination.id }}" tabindex="-1" aria-labelledby="modalLabel-{{ destination.id }}" aria-hidden="true">
+                            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="modalLabel-{{ destination.id }}">{{ destination.name }}</h5>
+                                        <button type="button" class="btn-close" data-coreui-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="{{ destination.image.url }}" class="img-fluid" alt="{{ destination.name }}">
+                                        <p class="mt-3">{{ destination.introduction }}</p> <!-- 完整介绍 -->
+                                        <p><strong>地址:</strong> {{ destination.address }}</p>
+                                        <p><strong>标签:</strong> {{ destination.get_tags_display }}</p> <!-- 标签显示 -->
+                                        <p><strong>评分:</strong> {{ destination.stars }} 星</p>
+                                        <p><a href="{{ destination.link }}" class="btn btn-info" target="_blank">更多信息</a></p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-coreui-dismiss="modal">关闭</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+        {% else %}
+            <p>没有找到符合条件的景点。</p>
+        {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<!-- 其他仪表板内容 -->
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <h2>Fund Accounts</h2>
+  <a href="{% url 'accountbook:add_fundaccount' %}">Add New Fund Account</a>
+  <table>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Balance</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for fund_account in fund_accounts %}
+        <tr>
+          <td>{{ fund_account.name }}</td>
+          <td>{{ fund_account.balance }}</td>
+          <td>
+            <a href="{% url 'accountbook:update_fundaccount' fund_account.account_id %}">Edit</a> | 
+            <a href="{% url 'accountbook:delete_fundaccount' fund_account.account_id %}">Delete</a>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}

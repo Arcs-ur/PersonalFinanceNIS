@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}交通查询与地图展示{% endblock %}
+
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Traffic</span></li>
+            <li class="breadcrumb-item active"><span>Map</span></li>
+        </ol>
+    </nav>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+        <h3>交通查询与地图展示</h3>
+        <div style="display: flex; gap: 10px; margin-bottom: 10px;"> <!-- 使用 flexbox 布局 -->
+            <select id="travel-mode" style="flex: 1; padding: 8px;">
+                <option value="walking">步行</option>
+                <option value="driving">驾车</option>
+            </select>
+            <input type="text" id="origin-input" placeholder="起点" required style="flex: 1; padding: 8px;"/>
+            <input type="text" id="destination-input" placeholder="终点" required style="flex: 1; padding: 8px;"/>
+            <button onclick="searchRoute()" style="flex: 1; padding: 8px;">查询路径</button>
+        </div>
+        <div id="info" style="margin-top: 10px; padding: 10px; border: 1px solid #ccc; border-radius: 5px; display: flex; flex-direction: column; gap: 5px;"></div> <!-- 显示查询结果 -->
+        <div id="container" style="height: 650px;"></div> <!-- 显示地图 -->
+    </div>
+</div>
+{% endblock %}
+
+
+{% block script %}
+<script type="text/javascript">
+    window._AMapSecurityConfig = {
+        securityJsCode: "63782f2afdffae17b1aac35011fea38e",
+    };
+</script>
+<script src="{% static 'js/loader.js' %}"></script>
+
+<script type="text/javascript">
+    var ak_map = "518f0cab403e3ba1bc5acc52d0f0fc4d"; // 地图展示的API Key
+    var ak_route = "ed750a279152bd9d7887b4729850efe8"; // 路径规划的API Key
+
+    // 初始化地图
+    AMapLoader.load({
+        key: ak_map, // 使用你的Web端开发者Key
+        version: "2.0",
+    })
+    .then((AMap) => {
+        const map = new AMap.Map("container", {
+            zoom: 11,
+            center: [121.4737, 31.2304] // 初始中心点：上海市中心
+        });
+
+        // 查询路径并在地图上标记起点和终点
+        window.searchRoute = function() {
+            var originAddress = document.getElementById("origin-input").value;
+            var destinationAddress = document.getElementById("destination-input").value;
+            var mode = document.getElementById("travel-mode").value;
+
+            // 清空结果信息
+            document.getElementById("info").innerHTML = "查询中，请稍候...";
+
+            if (!originAddress || !destinationAddress) {
+                document.getElementById("info").innerHTML = "请输入起点和终点地址";
+                return;
+            }
+
+            // 清空地图标记和路径
+            map.clearMap(); // 清空地图上的所有覆盖物
+
+            // 地理编码
+            Promise.all([geocodeAddress(originAddress), geocodeAddress(destinationAddress)])
+                .then(([origin, destination]) => {
+                    // 检查返回的经纬度
+                    if (!origin || !destination) {
+                        throw new Error("无效的地理编码结果");
+                    }
+                    console.log("起点坐标:", origin);
+                    console.log("终点坐标:", destination);
+                    
+                    getInfo(origin, destination, mode);
+                    // 在地图上标记起点和终点
+                    map.setCenter([origin.lng, origin.lat]); // 设置地图中心为起点
+                    new AMap.Marker({
+                        position: [origin[1], origin[0]], // [lat, lng]
+                        map: map,
+                    });
+                    new AMap.Marker({
+                        position: [destination[1], destination[0]], // [lat, lng]
+                        map: map,
+                    });
+                })
+                .catch(error => {
+                    console.error("地理编码或路径请求失败:", error);
+                    document.getElementById("info").innerHTML = "查询失败，请检查输入的地址是否正确或稍后再试。";
+                });
+        };
+
+        // 地理编码函数
+        function geocodeAddress(address) {
+            var url = "https://restapi.amap.com/v3/geocode/geo?address=" + encodeURIComponent(address) + "&key=" + ak_route + "&city=上海";
+            return fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === "1" && data.geocodes.length > 0) {
+                        return data.geocodes[0].location.split(',').map(Number); // 返回 [lng, lat]
+                    } else {
+                        throw new Error("地理编码失败: " + data.info);
+                    }
+                });
+        }
+
+        // 获取路径信息
+        function getInfo(origin, destination, mode) {
+            var url;
+            if (mode === "walking" || mode === "driving") {
+                url = `https://restapi.amap.com/v3/direction/${mode}?origin=${origin.join(',')}&destination=${destination.join(',')}&key=${ak_route}`;
+            }
+
+            console.log("请求的URL:", url); // 打印请求的URL以供调试
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    console.log("返回的数据:", data); // 打印返回的数据以供调试
+                    if (data.status === "1" && data.route && data.route.paths && data.route.paths.length > 0) {
+                        let path = data.route.paths[0]; // 获取第一个路径
+                        let distance = path.distance; // 路径的距离
+                        let duration = path.duration; // 路径的时间
+                        document.getElementById("info").innerHTML = `距离：${distance}米<br/>时间：${duration}秒`;
+                        
+                        // 处理路径点以在地图上绘制路径
+                        if (path.steps) {
+                            let pathPoints = [];
+                            path.steps.forEach(step => {
+                                // 解析每个步骤的坐标
+                                let stepPoints = step.polyline.split(';').map(point => {
+                                    let coords = point.split(',');
+                                    return [parseFloat(coords[0]), parseFloat(coords[1])]; // 返回 [lng, lat]
+                                });
+                                pathPoints = pathPoints.concat(stepPoints); // 合并所有步骤的路径点
+                            });
+                            // 绘制路径
+                            const polyline = new AMap.Polyline({
+                                path: pathPoints,
+                                strokeColor: "#FF0000", // 改为红色
+                                strokeWeight: 2, // 线宽设置为2
+                                strokeOpacity: 0.8 // 线透明度
+                            });
+                            polyline.setMap(map); // 将路径绘制到地图上
+                        }
+                    } else {
+                        document.getElementById("info").innerHTML = `路径规划失败：${data.info || "未知错误"}`;
+                    }
+                })
+                .catch(error => {
+                    console.error("路径请求失败:", error);
+                    document.getElementById("info").innerHTML = "路径请求失败";
+                });
+        }
+
+    })
+    .catch((e) => {
+        console.error("地图加载错误:", e);
+    });
+</script>
+
+{% endblock %}

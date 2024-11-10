@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}Your Calendar{% endblock %}
+{% block trace %}
+<div class="container-fluid px-4">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb my-0">
+            <li class="breadcrumb-item"><span>Home</span></li>
+            <li class="breadcrumb-item"><span>Agenda</span></li>
+            <li class="breadcrumb-item active"><span>Calendar</span></li>
+        </ol>
+    </nav>
+</div>
+<div class="body flex-grow-1">
+    <div class="container-lg px-4">
+      <div class="card mb-4">
+        <div class="card-header"> FullCalendar
+          <a class="badge bg-danger-gradient ms-2 text-decoration-none">Your own calendar</a>
+        </div>
+        <div class="card-body">
+          <div class="example">
+            <ul class="nav nav-underline-border" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-coreui-toggle="tab" href="#preview-1000" role="tab">
+                  <i class="bi bi-play-fill me-2"></i>  Preview
+                </a>
+              </li>
+            </ul>
+            <div class="tab-content rounded-bottom">
+              <div class="tab-pane p-3 active preview" role="tabpanel" id="preview-1000">
+                <div class="bg-body p-3 rounded" id="calendar"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<script id='events'>
+  {{ events }} 
+</script>
+<script src="{% static 'vendors/fullcalendar/js/index.global.min.js' %}"></script>
+<div id="event-details"></div> <!-- 确保这个元素存在 -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var calendarEl = document.getElementById('calendar');
+    var eventss = JSON.parse(document.getElementById('events').textContent);
+    var calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',  
+      events: eventss
+    });
+    calendar.render();
+  });
+</script>
+{% endblock %}
