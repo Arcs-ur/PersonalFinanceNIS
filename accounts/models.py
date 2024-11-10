@@ -25,10 +25,3 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.username
 
-class VerificationCode(models.Model):
-    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-    code = models.CharField(max_length=6)
-    created_at = models.DateTimeField(auto_now_add=True)
-
-    def is_valid(self):
-        return (timezone.now() - self.created_at).seconds < 300  # 5分钟有效
