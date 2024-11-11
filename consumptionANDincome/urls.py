@@ -28,6 +28,6 @@ urlpatterns = [
     path('expense/', views.expense_list, name='expense_list'),
     path('weekly-income-by-category/', views.weekly_income_by_category, name='weekly_income_by_category'),
     path('weekly-expenses-by-category/', views.weekly_expenses_by_category, name='weekly_expenses_by_category'),
-    path('api/expenses-by-category/', views.expenses_by_category_in_interval, name='expenses_by_category_in_interval'),
-    path('api/income-by-category/', views.income_by_category_in_interval, name='income_by_category_in_interval'),
+    path('expenses-by-category/', views.expenses_by_category_in_interval, name='expenses_by_category_in_interval'),
+    path('income-by-category/', views.income_by_category_in_interval, name='income_by_category_in_interval'),
 ]
