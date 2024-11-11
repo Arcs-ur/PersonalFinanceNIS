@@ -269,3 +269,4 @@ def weekly_income_by_category(request):
         ]
     }
     return Response(data)
+

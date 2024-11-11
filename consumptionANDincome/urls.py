@@ -26,6 +26,6 @@ urlpatterns = [
     path('expenseincome/', views.expenseincome_list, name='expenseincome_list'),
     path('income/', views.income_list, name='income_list'),
     path('expense/', views.expense_list, name='expense_list'),
-    path('weekly_income_by_category/', views.weekly_income_by_category, name='weekly_income_by_category'),
-    path('api/weekly-expenses-by-category/', views.weekly_expenses_by_category, name='weekly_expenses_by_category'),
+    path('weekly-income-by-category/', views.weekly_income_by_category, name='weekly_income_by_category'),
+    path('weekly-expenses-by-category/', views.weekly_expenses_by_category, name='weekly_expenses_by_category'),
 ]

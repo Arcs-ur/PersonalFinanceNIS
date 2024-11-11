@@ -15,5 +15,18 @@
 {% endblock %}
 
 {% block content %}
-<p>还没写</p>
+<div class="row">
+    <div class="col-md-6">
+        <h5>Weekly Expenses by Category</h5>
+        <canvas id="expensesChart"></canvas>
+    </div>
+    <div class="col-md-6">
+        <h5>Weekly Income by Category</h5>
+        <canvas id="incomeChart"></canvas>
+    </div>
+</div>
+
+<!-- Include Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
