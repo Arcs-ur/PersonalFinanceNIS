@@ -6,6 +6,9 @@ from .models import ExpenseEntry, IncomeEntry
 from .forms import ExpenseEntryForm, IncomeEntryForm
 from .models import IncomeEntry, ExpenseEntry
 from django.db.models import Sum
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
+from django.utils import timezone
 
 @login_required(login_url="/login/")
 def index(request):
@@ -204,3 +207,65 @@ def expense_list(request):
         expenses = ExpenseEntry.objects.all()
     
     return render(request, 'consumptionANDincome/expense_list.html',{'expenses':expenses})
+
+@api_view(['GET'])
+def weekly_expenses_by_category(request):
+    # Get the start and end of the current week
+    today = timezone.now()
+    start_of_week = today - timezone.timedelta(days=today.weekday())  # Monday
+    end_of_week = start_of_week + timezone.timedelta(days=6)  # Sunday
+
+    # Filter expenses for the current week
+    weekly_expenses = ExpenseEntry.objects.filter(
+        expense_time__date__range=[start_of_week, end_of_week]
+    )
+
+    # Aggregate expenses by category
+    expenses_by_category = (
+        weekly_expenses.values('expense_category')
+        .annotate(total_amount=Sum('amount'))
+        .order_by('expense_category')
+    )
+
+    # Format the response data
+    data = {
+        "expenses_by_category": [
+            {
+                "category": expense['expense_category'],
+                "total_amount": expense['total_amount']
+            }
+            for expense in expenses_by_category
+        ]
+    }
+    return Response(data)
+
+@api_view(['GET'])
+def weekly_income_by_category(request):
+    # Get the start and end of the current week
+    today = timezone.now()
+    start_of_week = today - timezone.timedelta(days=today.weekday())  # Monday
+    end_of_week = start_of_week + timezone.timedelta(days=6)  # Sunday
+
+    # Filter income for the current week
+    weekly_income = IncomeEntry.objects.filter(
+        income_time__date__range=[start_of_week, end_of_week]
+    )
+
+    # Aggregate income by category
+    income_by_category = (
+        weekly_income.values('income_category')
+        .annotate(total_amount=Sum('amount'))
+        .order_by('income_category')
+    )
+
+    # Format the response data
+    data = {
+        "income_by_category": [
+            {
+                "category": income['income_category'],
+                "total_amount": income['total_amount']
+            }
+            for income in income_by_category
+        ]
+    }
+    return Response(data)
