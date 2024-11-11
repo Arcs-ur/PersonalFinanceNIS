@@ -8,7 +8,9 @@ from .models import IncomeEntry, ExpenseEntry
 from django.db.models import Sum
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import status
 from django.utils import timezone
+from datetime import datetime
 
 @login_required(login_url="/login/")
 def index(request):
@@ -270,3 +272,110 @@ def weekly_income_by_category(request):
     }
     return Response(data)
 
+@api_view(['GET'])
+def expenses_by_category_in_interval(request):
+    # Get start and end dates from query parameters
+    start_date_str = request.query_params.get('start_date')
+    end_date_str = request.query_params.get('end_date')
+
+    # Validate date parameters
+    if not start_date_str or not end_date_str:
+        return Response(
+            {"error": "Both 'start_date' and 'end_date' parameters are required."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        # Parse the date strings into datetime objects
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+        end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+    except ValueError:
+        return Response(
+            {"error": "Invalid date format. Use 'YYYY-MM-DD'."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Ensure that the start date is not after the end date
+    if start_date > end_date:
+        return Response(
+            {"error": "'start_date' cannot be after 'end_date'."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Filter expenses within the specified date range
+    expenses = ExpenseEntry.objects.filter(
+        expense_time__date__range=[start_date, end_date]
+    )
+
+    # Aggregate expenses by category
+    expenses_by_category = (
+        expenses.values('expense_category')
+        .annotate(total_amount=Sum('amount'))
+        .order_by('expense_category')
+    )
+
+    # Format the response data
+    data = {
+        "expenses_by_category": [
+            {
+                "category": expense['expense_category'],
+                "total_amount": expense['total_amount']
+            }
+            for expense in expenses_by_category
+        ]
+    }
+    return Response(data)
+
+@api_view(['GET'])
+def income_by_category_in_interval(request):
+    # Get start and end dates from query parameters
+    start_date_str = request.query_params.get('start_date')
+    end_date_str = request.query_params.get('end_date')
+
+    # Validate date parameters
+    if not start_date_str or not end_date_str:
+        return Response(
+            {"error": "Both 'start_date' and 'end_date' parameters are required."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    try:
+        # Parse the date strings into datetime objects
+        start_date = datetime.strptime(start_date_str, '%Y-%m-%d')
+        end_date = datetime.strptime(end_date_str, '%Y-%m-%d')
+    except ValueError:
+        return Response(
+            {"error": "Invalid date format. Use 'YYYY-MM-DD'."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Ensure that the start date is not after the end date
+    if start_date > end_date:
+        return Response(
+            {"error": "'start_date' cannot be after 'end_date'."},
+            status=status.HTTP_400_BAD_REQUEST
+        )
+
+    # Filter income within the specified date range
+    incomes = IncomeEntry.objects.filter(
+        income_time__date__range=[start_date, end_date]
+    )
+
+    # Aggregate income by category
+    income_by_category = (
+        incomes.values('income_category')
+        .annotate(total_amount=Sum('amount'))
+        .order_by('income_category')
+    )
+
+    # Format the response data
+    data = {
+        "income_by_category": [
+            {
+                "category": income['income_category'],
+                "total_amount": income['total_amount']
+            }
+            for income in income_by_category
+        ]
+    }
+    return Response(data)
