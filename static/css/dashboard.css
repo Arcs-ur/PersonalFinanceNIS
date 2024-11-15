@@ -1,0 +1,5 @@
+#expensesCategoryChart, #incomeCategoryChart {
+    max-width: 100%; /* Ensures the canvas stays responsive */
+    width: 100%; /* Sets canvas to full width of its container */
+    height: auto; /* Allows height to scale with width */
+}

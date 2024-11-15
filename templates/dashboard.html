@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block title %}Dashboard{% endblock %}
 
@@ -14,5 +15,52 @@
 {% endblock %}
 
 {% block content %}
-<p>还没写</p>
+<link rel="stylesheet" href="{% static 'css/dashboard.css' %}">
+<div class="row">
+    <div class="col-md-6" style="margin:auto">
+        <h5>Weekly Expenses by Category</h5>
+        <div style="width: 75%; margin: 0 auto;">
+            <canvas id="expensesChart"></canvas>
+        </div>
+    </div>
+    <div class="col-md-6"  style="margin:auto">
+        <h5>Weekly Income by Category</h5>
+        <div style="width: 75%; margin: 0 auto;">
+            <canvas id="incomeChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<div class="row mb-4">
+    <div class="col-md-3">
+        <label for="startDate" style="margin:auto">Start Date:</label>
+        <input type="date" id="startDate" class="form-control">
+    </div>
+    <div class="col-md-3">
+        <label for="endDate" style="margin:auto">End Date:</label>
+        <input type="date" id="endDate" class="form-control">
+    </div>
+    <div class="col-md-3 align-self-end">
+        <button id="loadDataBtn" class="btn btn-primary">Load Data</button>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6" style="margin:auto">
+        <h5>Expenses by Category</h5>
+        <div style="width: 75%; margin: 0 auto;">
+            <canvas id="expensesCategoryChart"></canvas>
+        </div>
+    </div>
+    <div class="col-md-6" style="margin:auto">
+        <h5>Income by Category</h5>
+        <div style="width: 75%; margin: 0 auto;">
+            <canvas id="incomeCategoryChart"></canvas>
+        </div>
+    </div>
+</div>
+
+<!-- Include Chart.js from CDN -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="{% static 'js/dashboard.js' %}"></script>
 {% endblock %}
