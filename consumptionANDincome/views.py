@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from django.utils import timezone
 from datetime import datetime
+from django.db import transaction
 
 @login_required(login_url="/login/")
 def index(request):
@@ -106,8 +107,23 @@ def add_expense(request):
     if request.method == 'POST':
         form = ExpenseEntryForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('consumptionANDincome:expense_list')  # 添加成功后重定向到支出统计页面
+            with transaction.atomic():  # Ensure atomicity for consistency
+                # Save the expense entry
+                expense_entry = form.save()
+
+                # Check if the expense should be included in the balance
+                if expense_entry.include_in_balance:
+                    # Retrieve the associated fund account
+                    fund_account = expense_entry.account
+
+                    # Update the account balance
+                    fund_account.balance -= expense_entry.amount
+
+                    # Save the updated balance
+                    fund_account.save()
+
+            # Redirect to the expense list page
+            return redirect('consumptionANDincome:expense_list')
     else:
         form = ExpenseEntryForm()
 
@@ -145,8 +161,23 @@ def add_income(request):
     if request.method == 'POST':
         form = IncomeEntryForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('consumptionANDincome:income_list')  # 添加成功后重定向到收入统计页面
+            with transaction.atomic():  # Use a transaction to ensure consistency
+                # Save the income entry
+                income_entry = form.save()
+
+                # Check if the income should be included in the balance
+                if income_entry.include_in_balance:
+                    # Retrieve the associated fund account
+                    fund_account = income_entry.account
+
+                    # Update the account balance
+                    fund_account.balance += income_entry.amount
+
+                    # Save the updated balance
+                    fund_account.save()
+
+            # Redirect to the income list page
+            return redirect('consumptionANDincome:income_list')
     else:
         form = IncomeEntryForm()
 
